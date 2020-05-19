@@ -15,9 +15,9 @@
     "express": "~4.16.1",
     "express-session": "^1.17.1",
     "http-errors": "~1.6.3",
-    "mongoose": "^5.9.14",
+    "mongoose": "^5.9.15",
     "morgan": "~1.9.1",
-    "pug": "2.0.0-beta11",
+    "pug": "^2.0.4",
     "uuidv4": "^6.0.8"
   },
   "devDependencies": {
@@ -29,7 +29,7 @@
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
-    "eslint-plugin-react-hooks": "^2.5.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
     "mocha": "^7.1.2",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
