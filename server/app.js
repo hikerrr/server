@@ -6,14 +6,17 @@ const logger = require('morgan');
 
 const {uuid} = require('uuidv4');
 
+const adminRouter = require('./routes/admin');
+const indexRouter = require('./routes/index');
+
 const app = express();
 
+/**
 require('../utilities/Database');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const sessionStore = require('connect-mongo')(session);
-const adminRouter = require('./routes/admin');
-const indexRouter = require('./routes/index');
+
 
 const sessionOptions = {
   secret: uuid(),
@@ -36,7 +39,7 @@ if (app.get('env') == 'production') {
 }
 
 app.use(session(sessionOptions));
-
+**/
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');

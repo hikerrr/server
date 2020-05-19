@@ -1,7 +1,8 @@
 doctype html
 html
-  head
-    title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+  include components/head.pug
   body
+    include components/navigation.pug
     block content
+    include components/footer.pug
+    script(type='text/javascript', src='/javascripts/main.js')

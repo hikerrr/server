@@ -1,5 +1,31 @@
 extends layout
 
 block content
-  h1= title
-  p This site is under development.
+  section.container.content.ts-wrapper#ts
+    header.ts-header
+      h1.heading.center Trip Styles
+    section.ts
+      each trip in tripStyles
+        article.ts-card-container
+          figure.ts-card-image-wrapper
+            img(src=trip.src, alt=trip.alt).ts-card-image
+            div.overlay
+            h3.ts-title=trip.title
+            div.overlay-extended
+              figcaption.ts-card-caption.container
+                h3.ts-caption-heading=trip.heading
+                p=trip.caption
+                a(href='#').btn.btn-solid.container More Information
+                
+  section.container.content.ut-wrapper#ut
+    header.ut-header
+      h1.heading.center Upcoming Trips
+    section.uts
+      each trip in trips
+        article.ut-card-container
+          figure.ut-card-image-wrapper
+            img(src=trip.src, alt=trip.alt).ut-card-image
+            div.overlay
+          figcaption.ut-card-caption.container
+            p=trip.caption
+            a(href='#').btn.btn-glossy.container More Information

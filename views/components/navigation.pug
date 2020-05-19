@@ -1,0 +1,31 @@
+header.nav-container
+  div.top-nav.container
+    figure.logo-container
+      a(href='/').logo H.
+        //img(src='/images/logo.png', alt='logo').logo
+    div.bars-container(onclick='toggleNavigation()')
+        span.bar-middle
+    nav.nav-links-container
+      ul.nav-links-generic
+        li
+          a(href='#', onclick='toggleNavigation()') Home
+        li
+          a(href='#', onclick='toggleNavigation()') Destinations
+        li
+          a(href='#ts', onclick='toggleNavigation()') Trip Styles
+        li
+          a(href='#ut', onclick='toggleNavigation()') Upcoming Trips
+        li
+          a(href='#', onclick='toggleNavigation()') About
+        li
+          a(href='#', onclick='toggleNavigation()') Contact
+      ul.nav-links-social
+        li
+          a(href='#')
+            i(class='fa fa-facebook')
+        li
+          a(href='#')
+            i(class='fa fa-twitter')
+        li
+          a(href='#')
+            i(class='fa fa-instagram')
