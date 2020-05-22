@@ -1,3 +1,24 @@
-footer.footer-container.content
-  section.container
-    p
+footer.footer-wrapper.content
+  section.container.footer-content-wrapper
+    ul.footer-links
+      li
+        a(href='#') Home
+      li
+        a(href='#') Destinations
+      li
+        a(href='#') Trips
+      li
+        a(href='#') About
+      li
+        a(href='#') Contact
+      li
+        a(href='#') Blogs
+      li
+        a(href='#') Careers
+      li
+        a(href='#') Booking Conditions
+    div.newsletter-wrapper
+      form(method='post', action='/subscribe').footer-form
+        input(placeholder='Newsletter').input
+        button.btn.btn-solid Subscribe
+    p.copyright &copy; Hikerr 2020, All rights reserved.

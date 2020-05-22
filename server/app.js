@@ -8,6 +8,10 @@ const {uuid} = require('uuidv4');
 
 const adminRouter = require('./routes/admin');
 const indexRouter = require('./routes/index');
+const destRouter  = require('./routes/destinations');
+const tourRouter = require('./routes/tours');
+const tripsRouter = require('./routes/trips');
+const stylesRouter = require('./routes/styles');
 
 const app = express();
 
@@ -52,6 +56,10 @@ app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
+app.use('/destinations',destRouter);
+app.use('/tours',tourRouter);
+app.use('/trips',tripsRouter);
+app.use('/styles',stylesRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

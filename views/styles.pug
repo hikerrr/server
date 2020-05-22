@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  
+  section.content.hero-wrapper#hero
+    div.hero-gadets-wrapper
+      div.hero-overlay
+      div(style=`background-image: url(${data.store.tripStyles[data.query].hres});`).hero-background
+      div.hero-content-wrapper.animate-leftin
+        div.hero-content.container
+          header.hero-header.largest-text
+            h1=data.store.tripStyles[data.query].heading
+          article.hero-caption
+            p=data.store.tripStyles[data.query].caption
+          a(href='#ds').btn.btn-glossy-white More Details

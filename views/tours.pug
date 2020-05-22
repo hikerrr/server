@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  
+  section.content.hero-wrapper#hero
+    div.hero-gadets-wrapper
+      div.hero-overlay
+      div(style=`background-image: url(${data.city.hres});`).hero-background
+      div.hero-content-wrapper.animate-leftin
+        div.hero-content.container
+          header.hero-header.largest-text
+            h1=data.city.heading
+          article.hero-caption
+            p=data.city.caption
+          a(href='#tours').btn.btn-glossy-white Trips for #{data.city.heading}
+  
+  if !data.store.tours[data.query]
+    h1.content.heading.large-text.center No trips available yet
+  else
+    
+    section.tours-global-wrapper#ut
+      section.content.container#tours
+        header.ds-header
+          h1.heading.large-text.center Trips
+        section.tours-wrapper
+          for tour, key in data.store.tours[data.query]
+            div.tour-wrapper
+              img(src=tour.lres, alt=tour.alt).tour-image
+              div.tour-details
+                h2.tour-heading=tour.heading
+                div.tour-entry
+                  p Date
+                  span.tour-date #{tour.date}
+                div.tour-entry
+                  p Duration
+                  span.tour-duration #{tour.duration}
+                div.tour-entry
+                  p Price
+                  span.tour-price #{tour.price}
+                hr
+                div.tour-description
+                  p=tour.description
+                a(href=`/trips/${data.query}/${key + 1}`).btn.btn-glossy.btn-full More Information

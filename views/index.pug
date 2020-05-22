@@ -1,31 +1,90 @@
 extends layout
 
 block content
-  section.container.content.ts-wrapper#ts
-    header.ts-header
-      h1.heading.center Trip Styles
-    section.ts
-      each trip in tripStyles
-        article.ts-card-container
-          figure.ts-card-image-wrapper
-            img(src=trip.src, alt=trip.alt).ts-card-image
-            div.overlay
-            h3.ts-title=trip.title
-            div.overlay-extended
-              figcaption.ts-card-caption.container
-                h3.ts-caption-heading=trip.heading
-                p=trip.caption
-                a(href='#').btn.btn-solid.container More Information
-                
-  section.container.content.ut-wrapper#ut
-    header.ut-header
-      h1.heading.center Upcoming Trips
-    section.uts
-      each trip in trips
-        article.ut-card-container
-          figure.ut-card-image-wrapper
-            img(src=trip.src, alt=trip.alt).ut-card-image
-            div.overlay
-          figcaption.ut-card-caption.container
-            p=trip.caption
-            a(href='#').btn.btn-glossy.container More Information
+  
+  section.content.hero-wrapper#hero
+    for hero in data.store.destinations
+      div(class=hero.visible?"":"off-screen-hero").hero-gadets-wrapper
+        div.hero-overlay
+        div(style=`background-image: url(${hero.hres});`).hero-background
+        div.hero-content-wrapper.animate-leftin
+          div.hero-content.container
+            header.hero-header.largest-text
+              h1=hero.heading
+            article.hero-caption
+              p=hero.caption
+            a(href=`${hero.href}#ds`).btn.btn-glossy-white More Information
+            div.hero-nav
+              div(onclick='heroNavLeft()').arrow-wrapper
+                div.arrow
+              div(onclick='heroNavRight()').arrow-wrapper
+                div.arrow.arrow-right
+  
+  section.ds-global-wrapper#ds
+    section.container.content.ds-wrapper
+      header.ds-header
+        h1.heading.large-text.center Destinations
+      section.ds
+        each destination in data.store.destinations
+          article.ds-card-wrapper.watch
+            figure.ds-card-image-wrapper
+              img(src=destination.lres, alt=destination.alt).ds-card-image
+              div.overlay
+              a(href=destination.href).ds-card-caption
+                h3.ds-caption-heading=destination.heading
+              
+  section.ts-global-wrapper#ts
+    section.container.content.ds-wrapper
+      header.ds-header
+        h1.heading.large-text.center Trip Styles
+      section.ds
+        each trip in data.store.tripStyles
+          article.ds-card-wrapper.watch
+            figure.ds-card-image-wrapper
+              img(src=trip.lres, alt=trip.alt).ds-card-image
+              div.overlay
+              a(href=trip.href).ds-card-caption
+                h3.ds-caption-heading=trip.heading
+  
+  section.tours-global-wrapper#ut
+    section.content.container#tours
+      header.ds-header
+        h1.heading.large-text.center Upcoming Trips
+      section.tours-wrapper
+        for tour in data.store.tours['neelam-valley']
+          div.tour-wrapper
+            img(src=tour.lres, alt=tour.alt).tour-image
+            div.tour-details
+              h2.tour-heading=tour.heading
+              div.tour-entry
+                i(class='fa fa-calendar').tour-icon
+                span.tour-date #{tour.date}
+              div.tour-entry
+                i(class='fa fa-clock-o').tour-icon
+                span.tour-duration #{tour.duration}
+              div.tour-entry
+                i(class='fa fa-money').tour-icon
+                span.tour-price #{tour.price}
+              hr
+              div.tour-description
+                p=tour.description
+              a.btn.btn-glossy.btn-full More Information
+
+
+  section.blogs-global-wrapper#blog
+    section.container.content
+      header.ds-header
+        h1.heading.large-text.center Blogs
+  
+  section.ab-global-wrapper#about
+  section.container.content.ds-wrapper
+    header.ds-header
+      h1.heading.large-text.center About Us
+    section.ab
+      video.ab-video(controls, loading='lazy').watch
+        source(src='/assets/videos/about.mp4', type='video/mp4')
+        source(src='/assets/videos/about.ogg', type='video/ogg')
+      article.ab-content-wrapper
+        p.ab-content=data.content
+  
+  

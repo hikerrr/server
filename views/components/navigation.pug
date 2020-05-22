@@ -1,27 +1,31 @@
+div.scroll-wrapper
+  div(onclick='scrollDown()').arrow-wrapper.arrow-dark
+    div.arrow.arrow-down
+      
 header.nav-container
   div.top-nav.container
     figure.logo-container
-      a(href='/').logo H.
+      a(href='/').logo.medium-text H.
         //img(src='/images/logo.png', alt='logo').logo
     div.bars-container(onclick='toggleNavigation()')
         span.bar-middle
     nav.nav-links-container
       ul.nav-links-generic
         li
-          a(href='#', onclick='toggleNavigation()') Home
+          a(href='/', onclick='toggleNavigation()') Home
         li
-          a(href='#', onclick='toggleNavigation()') Destinations
+          a(href='/#ds', onclick='toggleNavigation()') Destinations
         li
-          a(href='#ts', onclick='toggleNavigation()') Trip Styles
+          a(href='/#ts', onclick='toggleNavigation()') Trip Styles
         li
-          a(href='#ut', onclick='toggleNavigation()') Upcoming Trips
+          a(href='/#ut', onclick='toggleNavigation()') Upcoming Trips
         li
-          a(href='#', onclick='toggleNavigation()') About
+          a(href='/#about', onclick='toggleNavigation()') About
         li
-          a(href='#', onclick='toggleNavigation()') Contact
+          a(href='/#contact', onclick='toggleNavigation()') Contact
       ul.nav-links-social
         li
-          a(href='#')
+          a(href='https://www.facebook.com/hikerrtravel')
             i(class='fa fa-facebook')
         li
           a(href='#')

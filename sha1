@@ -1,4 +1,0 @@
-openssl s_client -connect www.google.com:443 < /dev/null 2> /dev/null \
-    | openssl x509 -outform DER \
-    | openssl sha1 \
-    | awk '{print $2 ".notary.icsi.berkeley.edu"}'

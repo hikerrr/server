@@ -1,0 +1,195 @@
+/* setting the root custom properties */
+:root
+{
+  --primary-font: 'Nunito';
+  --secondary-font: 'Nunito';
+  --base-font-size: 14px;
+
+  --container-width: 90%;
+
+  --color-dark: #141414;
+  --color-white: #FFFFFF;
+  --color-theme: #D2691E;
+
+  --font-size-1: 4rem;
+  --font-size-2: 2.5rem;
+  --font-size-3: 1.65rem;
+  --font-size-4: 1.5rem;
+  --font-size-5: 1.35rem;
+  --font-size-6: 1.15rem;
+}
+
+/* get rid of default margins and paddings */
+*,
+*::after,
+*::before
+{
+  margin : 0;
+  padding : 0;
+  box-sizing : border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* smooth scrolling and fluid font sizes */
+html
+{
+  scroll-behavior : smooth;
+  font-size : var(--base-font-size);
+}
+
+/* fluid images */
+img
+{
+  max-width: 100%;
+  height: auto;
+}
+
+/** default styles **/
+a
+{
+  text-decoration: none;
+}
+
+p,
+a,
+span
+{
+  font-family: var(--secondary-font);
+}
+
+ul
+{
+  list-style-type: none;
+}
+/** default styles end **/
+/** custom solid styles **/
+.container
+{
+  max-width: var(--container-width);
+  margin: 0 auto;
+}
+
+.largest-text
+{
+  font-size: var(--font-size-1);
+}
+
+.large-text
+{
+  font-size: var(--font-size-2);
+}
+
+.medium-text
+{
+  font-size: var(--font-size-3);
+}
+
+.small-text
+{
+  font-size: var(--font-size-4);
+}
+
+/** center the text **/
+.center
+{
+  text-align : center;
+}
+
+.heading
+{
+  color: var(--color-dark);
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+/** custom solid styles end **/
+/** buttons **/
+.btn
+{
+  display: inline-block;
+  margin: 1.35rem 0;
+  padding: 0.8rem 1rem;
+  outline: none;
+  border: none;
+
+  transition: all 0.4s ease;
+}
+
+.btn-glossy
+{
+  color: var(--color-theme);
+  border: 1px solid var(--color-theme);
+}
+
+.btn-glossy-white
+{
+  color: var(--color-white);
+  border: 1px solid var(--color-white);
+}
+
+.btn-solid
+{
+  color: var(--color-dark);
+  background-color: var(--color-theme);
+}
+
+.btn-glossy-white:hover
+{
+  border: none;
+  background-color: var(--color-theme);
+}
+
+.btn-solid:hover
+{
+  border: 1px solid var(--color-theme);
+  background-color: transparent;
+  color: var(--color-theme);
+}
+
+.btn-glossy:hover
+{
+  background-color: var(--color-theme);
+  color: var(--color-dark);
+  box-shadow: 3px 3px 12px rgba(0,0,0,0.2);
+}
+
+/** for mobile screens **/
+@media screen and (min-width: 576px)
+{
+  :root
+  {
+    --container-width: 540px;
+    --base-font-size: 16px;
+    --font-size-1: 4rem;
+    --font-size-2: 2.6rem;
+  }
+}
+
+/** for tablet screens **/
+@media screen and (min-width : 768px)
+{
+  :root
+  {
+    --container-width: 720px;
+    --base-font-size: 16px;
+  }
+
+}
+
+/** for small laptop screens **/
+@media screen and (min-width: 992px)
+{
+  :root
+  {
+    --container-width: 960px;
+  }
+}
+
+/** for large laptop screens **/
+@media screen and (min-width: 1200px)
+{
+  :root
+  {
+    --container-width: 1140px;
+  }
+}

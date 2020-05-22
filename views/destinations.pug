@@ -1,0 +1,43 @@
+extends layout
+
+block content
+  
+  if data.query
+    
+    section.content.hero-wrapper#hero
+      div.hero-gadets-wrapper
+        div.hero-overlay
+        div(style=`background-image: url(${data.store.destinations[data.query].hres});`).hero-background
+        div.hero-content-wrapper.animate-leftin
+          div.hero-content.container
+            header.hero-header.largest-text
+              h1=data.store.destinations[data.query].heading
+            article.hero-caption
+              p=data.store.destinations[data.query].caption
+            a(href='#ds').btn.btn-glossy-white Places to visit
+              
+    section.ds-global-wrapper#ds
+      section.container.content.ds-wrapper
+        header.ds-header
+          h1.heading.large-text.center Places
+        section.ds
+          each place in data.store.cities[data.query]
+            article.ds-card-wrapper.watch
+              figure.ds-card-image-wrapper
+                img(src=place.lres, alt=place.alt).ds-card-image
+                div.overlay
+                a(href=place.href).ds-card-caption
+                  h3.ds-caption-heading=place.heading
+  
+  section.ds-global-wrapper#ds
+    section.container.content.ds-wrapper
+      header.ds-header
+        h1.heading.large-text.center More
+      section.ds
+        each destination in data.store.destinations
+          article.ds-card-wrapper.watch
+            figure.ds-card-image-wrapper
+              img(src=destination.lres, alt=destination.alt).ds-card-image
+              div.overlay
+              a(href=destination.href).ds-card-caption
+                h3.ds-caption-heading=destination.heading
