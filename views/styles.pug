@@ -5,11 +5,50 @@ block content
   section.content.hero-wrapper#hero
     div.hero-gadets-wrapper
       div.hero-overlay
-      div(style=`background-image: url(${data.store.tripStyles[data.query].hres});`).hero-background
+      div(style=`background-image: url('/assets/images/hres/other/${data.tripStyle.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
           header.hero-header.largest-text
-            h1=data.store.tripStyles[data.query].heading
+            h1=data.tripStyle.heading
           article.hero-caption
-            p=data.store.tripStyles[data.query].caption
+            p=data.tripStyle.caption
           a(href='#ds').btn.btn-glossy-white More Details
+
+
+  section.ds-global-wrapper#ds
+    section.container.content.ds-wrapper
+      header.ds-header
+        h1.heading.large-text.center=data.tripStyle.cities.length?'Places':''
+      section.ds
+        each place in data.tripStyle.cities
+          article.ds-card-wrapper.watch
+            figure.ds-card-image-wrapper
+              img(src=`/assets/images/lres/cities/${place.imageName}`, alt=place.imageCaption).ds-card-image
+              div.overlay
+              a(href=`/tours/${place.linkName}`).ds-card-caption
+                h3.ds-caption-heading=place.heading
+                
+                
+  section.tours-global-wrapper#ut
+    section.content.container#tours
+      header.ds-header
+        h1.heading.large-text.center=data.tripStyle.tours.length?'Tours':''
+      section.tours-wrapper
+        for tour, key in data.tripStyle.tours
+          div.tour-wrapper
+            img(src=`/assets/images/lres/tours/${tour.imageName}`, alt=tour.imageCaption).tour-image
+            div.tour-details
+              h2.tour-heading=tour.heading
+              div.tour-entry
+                p Date
+                span.tour-date=tour.startDate.toDateString()
+              div.tour-entry
+                p Duration
+                span.tour-duration=tour.durationMin
+              div.tour-entry
+                p Price
+                span.tour-price=tour.priceMin
+              hr
+              div.tour-description
+                p=tour.caption
+              a(href=`/trips/${tour.linkName}`).btn.btn-glossy.btn-full More Information

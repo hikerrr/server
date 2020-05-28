@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  
+  section.login-form-wrapper
+    div.overlay.form-overlay
+    form(method='post', action='/admin/login').admin-form.container
+      h1.heading.large-text.center Hikerr Portal
+      label(for='username').form-label Username 
+        span.red *
+      div.form-field
+        input(type='text', name='username').form-input
+        span.input-focus
+      label(for='password').form-label Password 
+        span.red *
+      div.form-field
+        input(type='password',name='password').form-input
+        span.input-focus
+      div.form-field
+          a(href='/').form-forgot Back to Hikerr.com ?
+      if loginError
+        span.form-error.red * Invalid Username or Password
+      input(type='submit', value='Login').form-input.form-btn

@@ -1,19 +1,32 @@
-const express = require('express');
+// needed by babel for async and generator functions of ES6
+import regeneratorRuntime from 'regenerator-runtime';
+import express from 'express';
+import Destination from '../models/Destination';
+import Style from '../models/Style';
+import Tour from '../models/Tour';
+import Blog from '../models/Blog';
 
 const router = express.Router();
-const {store} = require('../models/store');
-/* GET home page. */
-router.get('/', (req, res, next) => {
 
-  const data =
-  {
-    title: 'Hikerr',
-    heading: 'Travel With Us',
-    content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    store: store
+
+router.get('/', async (req, res) => {
+  try {
+    const destinations = await Destination.find({});
+    const tripStyles = await Style.find({});
+    const upComingTours = await Tour.find({});
+    const blogs = await Blog.find({});
+
+    const data = {
+      destinations,
+      tripStyles,
+      upComingTours,
+      blogs,
+    };
+
+    res.render('index', {data});
+  } catch (Error) {
+    console.log(`Error getting home page: ${Error}`);
   }
-
-  res.render('index', {data:data});
 });
 
-module.exports = router;
+export default router;

@@ -1,27 +1,27 @@
-const createError = require('http-errors');
-const express = require('express');
-const path = require('path');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
-
-const {uuid} = require('uuidv4');
-
-const adminRouter = require('./routes/admin');
-const indexRouter = require('./routes/index');
-const destRouter  = require('./routes/destinations');
-const tourRouter = require('./routes/tours');
-const tripsRouter = require('./routes/trips');
-const stylesRouter = require('./routes/styles');
+// needed by babel for async and generator functions of ES6
+import regeneratorRuntime from 'regenerator-runtime';
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import logger from 'morgan';
+import {uuid} from 'uuidv4';
+import mongoose from 'mongoose';
+import session from 'express-session';
+import SessionStore from 'connect-mongo';
+import adminRouter from './routes/admin';
+import indexRouter from './routes/index';
+import destRouter from './routes/destinations';
+import tourRouter from './routes/tours';
+import tripsRouter from './routes/trips';
+import stylesRouter from './routes/styles';
+import blogsRouter from './routes/blogs';
+import uploadsRouter from './routes/uploads';
+import downloadsRouter from './routes/downloads';
+import '../utilities/Database';
 
 const app = express();
-
-/**
-require('../utilities/Database');
-const mongoose = require('mongoose');
-const session = require('express-session');
-const sessionStore = require('connect-mongo')(session);
-
-
+const sessionStore = new SessionStore(session);
 const sessionOptions = {
   secret: uuid(),
   resave: false,
@@ -29,7 +29,7 @@ const sessionOptions = {
   store: new sessionStore({mongooseConnection: mongoose.connection}),
   cookie: {
     name: 'hikerr_session_id',
-    secure: false,
+    secure: true,
     rolling: true,
     maxAge: 60 * 60 * 1000, // valid for one day
   },
@@ -38,28 +38,31 @@ const sessionOptions = {
   },
 };
 
-if (app.get('env') == 'production') {
-  sessionOptions.cookie.secure = true;
+if (app.get('env') == 'development') {
+  sessionOptions.cookie.secure = false;
 }
 
 app.use(session(sessionOptions));
-**/
+
 // view engine setup
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
-app.use('/destinations',destRouter);
-app.use('/tours',tourRouter);
-app.use('/trips',tripsRouter);
-app.use('/styles',stylesRouter);
+app.use('/destinations', destRouter);
+app.use('/tours', tourRouter);
+app.use('/trips', tripsRouter);
+app.use('/styles', stylesRouter);
+app.use('/blogs',blogsRouter);
+app.use('/upload', uploadsRouter);
+app.use('/download', downloadsRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
@@ -77,4 +80,4 @@ app.use((err, req, res, next) => {
   res.render('error');
 });
 
-module.exports = app;
+export default app;

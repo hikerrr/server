@@ -1,4 +1,6 @@
 div.scroll-wrapper
+  div(onclick='scrollUp()').arrow-wrapper.arrow-dark
+    div.arrow.arrow-up
   div(onclick='scrollDown()').arrow-wrapper.arrow-dark
     div.arrow.arrow-down
       
@@ -23,6 +25,8 @@ header.nav-container
           a(href='/#about', onclick='toggleNavigation()') About
         li
           a(href='/#contact', onclick='toggleNavigation()') Contact
+        li
+          a(href='/admin/login') Sign In
       ul.nav-links-social
         li
           a(href='https://www.facebook.com/hikerrtravel')

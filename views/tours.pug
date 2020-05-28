@@ -5,7 +5,7 @@ block content
   section.content.hero-wrapper#hero
     div.hero-gadets-wrapper
       div.hero-overlay
-      div(style=`background-image: url(${data.city.hres});`).hero-background
+      div(style=`background-image: url('/assets/images/hres/cities/${data.city.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
           header.hero-header.largest-text
@@ -14,30 +14,30 @@ block content
             p=data.city.caption
           a(href='#tours').btn.btn-glossy-white Trips for #{data.city.heading}
   
-  if !data.store.tours[data.query]
-    h1.content.heading.large-text.center No trips available yet
+  if !data.city.tours.length
+    h1.content.heading.large-text.center No tours available yet
   else
     
     section.tours-global-wrapper#ut
       section.content.container#tours
         header.ds-header
-          h1.heading.large-text.center Trips
+          h1.heading.large-text.center Tours
         section.tours-wrapper
-          for tour, key in data.store.tours[data.query]
+          for tour, key in data.city.tours
             div.tour-wrapper
-              img(src=tour.lres, alt=tour.alt).tour-image
+              img(src=`/assets/images/lres/tours/${tour.imageName}`, alt=tour.imageCaption).tour-image
               div.tour-details
                 h2.tour-heading=tour.heading
                 div.tour-entry
                   p Date
-                  span.tour-date #{tour.date}
+                  span.tour-date=tour.startDate.toDateString()
                 div.tour-entry
                   p Duration
-                  span.tour-duration #{tour.duration}
+                  span.tour-duration=tour.durationMin
                 div.tour-entry
                   p Price
-                  span.tour-price #{tour.price}
+                  span.tour-price=tour.priceMin
                 hr
                 div.tour-description
-                  p=tour.description
-                a(href=`/trips/${data.query}/${key + 1}`).btn.btn-glossy.btn-full More Information
+                  p=tour.caption
+                a(href=`/trips/${tour.linkName}`).btn.btn-glossy.btn-full More Information

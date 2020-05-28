@@ -1,0 +1,677 @@
+extends layout
+
+block content
+  
+  div.app-global-wrapper
+    div.app-wrapper
+      if notify
+        div.app-notification-wrapper
+          div.app-notification
+            p=notify
+      div.app-top-wrapper
+        div.app-top
+          div.bars-container(onclick='appNavOpen()')
+            div.bar-middle
+          div.top-options
+            span.heading.app-heading Hikerr
+          a(href='/admin/logout').app-signout Sign Out
+      div.app-content-wrapper
+        
+        
+        div.app-content.app-active-content
+          ul.app-content-list
+            li.app-content-list-item Add a new Destination
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/destinations').app-form
+                  label.form-label Link Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='linkName').form-input
+                    span.input-focus
+                  label.form-label Heading 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='heading').form-input
+                    span.input-focus
+                  label.form-label Image Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageName').form-input
+                    span.input-focus
+                  label.form-label Image Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageCaption').form-input
+                    span.input-focus
+                  label.form-label Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='caption').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Add Destination').form-input.btn.btn-solid
+                    
+            each item,index in data.destinations
+              li.app-content-list-item #{item.heading}
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action=`/destinations/patch/${item.linkName}`).app-form
+                    label.form-label Link Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='linkName', value=item.linkName).form-input
+                      span.input-focus
+                    label.form-label Heading 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='heading', value=item.heading).form-input
+                      span.input-focus
+                    label.form-label Image Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageName', value=item.imageName).form-input
+                      span.input-focus
+                    label.form-label Image Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      span.input-focus
+                    label.form-label Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='caption', value=item.caption).form-input
+                      span.input-focus
+                    label.form-label Children Cities 
+                      span.red *
+                    for city in data.cities
+                      div.form-field
+                        - let isPresent = item.cities && item.cities.some(c => c._id.toString() === city._id.toString());
+                        if isPresent
+                          input(type='checkbox', name='cities[]', value=city._id checked)
+                          label #{city.heading}
+                        else
+                          
+                          input(type='checkbox', name='cities[]', value=city._id)
+                          label #{city.heading}
+                    div.form-field
+                      input(type='submit', value='Save Destination').form-input.btn.btn-solid
+                  form(method='post', action=`/destinations/delete/${item.linkName}`)
+                    div.form-field
+                      input(type='submit', value='Delete Destination').form-input.btn.btn-solid
+                      
+        
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Add a City
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/tours').app-form
+                  label.form-label Link Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='linkName').form-input
+                    span.input-focus
+                  label.form-label Heading 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='heading').form-input
+                    span.input-focus
+                  label.form-label Image Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageName').form-input
+                    span.input-focus
+                  label.form-label Image Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageCaption').form-input
+                    span.input-focus
+                  label.form-label Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='caption').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Add City').form-input.btn.btn-solid
+              
+                    
+            each item,index in data.cities
+              li.app-content-list-item #{item.heading}
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action=`/tours/patch/${item.linkName}`).app-form
+                    label.form-label Link Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='linkName', value=item.linkName).form-input
+                      span.input-focus
+                    label.form-label Heading 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='heading', value=item.heading).form-input
+                      span.input-focus
+                    label.form-label Image Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageName', value=item.imageName).form-input
+                      span.input-focus
+                    label.form-label Image Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      span.input-focus
+                    label.form-label Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='caption', value=item.caption).form-input
+                      span.input-focus
+                    label.form-label Tours 
+                      span.red *
+                    for tour in data.tours
+                      div.form-field
+                        - let isPresent = item.tours && item.tours.some(c => c._id.toString() === tour._id.toString());
+                        if isPresent
+                          input(type='checkbox', name='tours[]', value=tour._id checked)
+                          label #{tour.heading}
+                        else
+                          
+                          input(type='checkbox', name='tours[]', value=tour._id)
+                          label #{tour.heading}
+                    div.form-field
+                      input(type='submit', value='Save City').form-input.btn.btn-solid                
+                  form(method='post', action=`/tours/delete/${item.linkName}`)
+                    div.form-field
+                      input(type='submit', value='Delete City').form-input.btn.btn-solid
+
+                      
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Add a new Trip Style
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/styles').app-form
+                  label.form-label Link Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='linkName').form-input
+                    span.input-focus
+                  label.form-label Heading 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='heading').form-input
+                    span.input-focus
+                  label.form-label Image Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageName').form-input
+                    span.input-focus
+                  label.form-label Image Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageCaption').form-input
+                    span.input-focus
+                  label.form-label Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='caption').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Add Trip Style').form-input.btn.btn-solid
+            each item,index in data.tripStyles
+              li.app-content-list-item=item.heading
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action=`/styles/patch/${item.linkName}`).app-form
+                    label.form-label Link Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='linkName', value=item.linkName).form-input
+                      span.input-focus
+                    label.form-label Heading 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='heading', value=item.heading).form-input
+                      span.input-focus
+                    label.form-label Image Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageName', value=item.imageName).form-input
+                      span.input-focus
+                    label.form-label Image Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      span.input-focus
+                    label.form-label Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='caption', value=item.caption).form-input
+                      span.input-focus
+                    label.form-label Tours 
+                      span.red *
+                    for tour in data.tours
+                      div.form-field
+                        - let isPresent = item.tours && item.tours.some(c => c._id.toString() === tour._id.toString());
+                        if isPresent
+                          input(type='checkbox', name='tours[]', value=tour._id checked)
+                          label #{tour.heading}
+                        else
+                          
+                          input(type='checkbox', name='tours[]', value=tour._id)
+                          label #{tour.heading}
+                          
+                    label.form-label Children Cities 
+                      span.red *
+                    for city in data.cities
+                      div.form-field
+                        - let isPresent = item.cities && item.cities.some(c => c._id.toString() === city._id.toString());
+                        if isPresent
+                          input(type='checkbox', name='cities[]', value=city._id checked)
+                          label #{city.heading}
+                        else
+                          
+                          input(type='checkbox', name='cities[]', value=city._id)
+                          label #{city.heading}
+                    div.form-field
+                      input(type='submit', value='Save Trip Style').form-input.btn.btn-solid                    
+                  form(method='post', action=`/styles/delete/${item.linkName}`)
+                    div.form-field
+                      input(type='submit', value='Delete Trip Style').form-input.btn.btn-solid
+                      
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Add a new Blog
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/blogs').app-form
+                  label.form-label Link Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='linkName').form-input
+                    span.input-focus
+                  label.form-label Author Name
+                    span.red *
+                  div.form-field
+                    input(type='text', name='author').form-input
+                    span.input-focus
+                  label.form-label Blog Title 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='title').form-input
+                    span.input-focus
+                  label.form-label Image Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageName').form-input
+                    span.input-focus
+                  label.form-label Image Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageCaption').form-input
+                    span.input-focus
+                  label.form-label Blog Content 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='content').form-input
+                    span.input-focus
+                  label.form-label Read time 
+                    span.red *
+                  div.form-field
+                    input(type='number', name='readTime').form-input
+                    span.input-focus
+                  label.form-label Blog Date 
+                    span.red *
+                  div.form-field
+                    input(type='date', name='writingDate').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Add Blog').form-input.btn.btn-solid
+            each item,index in data.blogs
+              li.app-content-list-item=item.title
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action=`/blogs/patch/${item.linkName}`).app-form
+                    label.form-label Link Name
+                      span.red *
+                    div.form-field
+                      input(type='text', name='linkName', value=item.linkName).form-input
+                      span.input-focus
+                    label.form-label Author Name
+                      span.red *
+                    div.form-field
+                      input(type='text', name='author', value=item.author).form-input
+                      span.input-focus
+                    label.form-label Blog Title 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='title', value=item.title).form-input
+                      span.input-focus
+                    label.form-label Image Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageName', value=item.imageName).form-input
+                      span.input-focus
+                    label.form-label Image Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      span.input-focus
+                    label.form-label Blog Content 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='content', value=item.content).form-input
+                      span.input-focus
+                    label.form-label Read time 
+                      span.red *
+                    div.form-field
+                      input(type='number', name='readTime', value=item.readTime).form-input
+                      span.input-focus
+                    label.form-label Blog Date 
+                      span.red *
+                    div.form-field
+                      input(type='date', name='writingDate', value=`${item.writingDate.getFullYear()}-${item.writingDate.getMonth().toString().padStart(2,'0')}-${item.writingDate.getDate().toString().padStart(2,'0')}`).form-input
+                      span.input-focus
+                    div.form-field
+                      input(type='submit', value='Save Blog').form-input.btn.btn-solid
+                  form(method='post', action=`/blogs/delete/${item.linkName}`)
+                    div.form-field
+                      input(type='submit', value='Delete Blog').form-input.btn.btn-solid
+                      
+                      
+                      
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Add a new Tour
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/trips').app-form
+                  label.form-label Link Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='linkName').form-input
+                    span.input-focus
+                  label.form-label Heading
+                    span.red *
+                  div.form-field
+                    input(type='text', name='heading').form-input
+                    span.input-focus
+                  label.form-label Caption
+                    span.red *
+                  div.form-field
+                    input(type='text', name='caption').form-input
+                    span.input-focus
+                  label.form-label Image Name 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageName').form-input
+                    span.input-focus
+                  label.form-label Image Caption 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='imageCaption').form-input
+                    span.input-focus
+                  label.form-label Starting Date
+                    span.red *
+                  div.form-field
+                    input(type='date', name='startDate').form-input
+                    span.input-focus
+                  label.form-label Price Min 
+                    span.red *
+                  div.form-field
+                    input(type='number', name='priceMin').form-input
+                    span.input-focus
+                  label.form-label Price Max 
+                    span.red *
+                  div.form-field
+                    input(type='number', name='priceMax').form-input
+                    span.input-focus
+                  label.form-label Duration Min 
+                    span.red *
+                  div.form-field
+                    input(type='number', name='durationMin').form-input
+                    span.input-focus
+                  label.form-label Duration Max 
+                    span.red *
+                  div.form-field
+                    input(type='number', name='durationMax').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Add Tour').form-input.btn.btn-solid
+                    
+            each item,index in data.tours      
+              li.app-content-list-item=item.heading
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action='/trips').app-form
+                    label.form-label Link Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='linkName', value=item.linkName).form-input
+                      span.input-focus
+                    label.form-label Heading
+                      span.red *
+                    div.form-field
+                      input(type='text', name='heading', value=item.heading).form-input
+                      span.input-focus
+                    label.form-label Caption
+                      span.red *
+                    div.form-field
+                      input(type='text', name='caption', value=item.caption).form-input
+                      span.input-focus
+                    label.form-label Image Name 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageName', value=item.imageName).form-input
+                      span.input-focus
+                    label.form-label Image Caption 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      span.input-focus
+                    label.form-label Starting Date
+                      span.red *
+                    div.form-field
+                      input(type='date', name='startDate', value=`${item.startDate.getFullYear()}-${item.startDate.getMonth().toString().padStart(2,'0')}-${item.startDate.getDate().toString().padStart(2,'0')}`).form-input
+                      span.input-focus
+                    label.form-label Price Min 
+                      span.red *
+                    div.form-field
+                      input(type='number', name='priceMin', value=item.priceMin).form-input
+                      span.input-focus
+                    label.form-label Price Max 
+                      span.red *
+                    div.form-field
+                      input(type='number', name='priceMax', value=item.priceMax).form-input
+                      span.input-focus
+                    label.form-label Duration Min 
+                      span.red *
+                    div.form-field
+                      input(type='number', name='durationMin', value=item.durationMin).form-input
+                      span.input-focus
+                    label.form-label Duration Max 
+                      span.red *
+                    div.form-field
+                      input(type='number', name='durationMax', value=item.durationMax).form-input
+                      span.input-focus
+                    div.form-field
+                      input(type='submit', value='Add Tour').form-input.btn.btn-solid
+                  form(method='post', action=`/trips/delete/${item.linkName}`)
+                    div.form-field
+                      input(type='submit', value='Delete Tour').form-input.btn.btn-solid    
+                      
+                      
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Add a new Admin
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/admin').app-form
+                  label.form-label Username 
+                    span.red *
+                  div.form-field
+                    input(type='text', name='username').form-input
+                    span.input-focus
+                  label.form-label Password
+                    span.red *
+                  div.form-field
+                    input(type='password', name='password').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Save Admin').form-input.btn.btn-solid
+                    
+            each item,index in data.admins      
+              li.app-content-list-item=item.username
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action=`/admin/patch/${item.username}`).app-form
+                    label.form-label Username 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='username', value=item.username).form-input
+                      span.input-focus
+                    label.form-label Old Password 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='oldPassword').form-input
+                      span.input-focus
+                    label.form-label New Password 
+                      span.red *
+                    div.form-field
+                      input(type='text', name='password').form-input
+                      span.input-focus
+                    div.form-field
+                      input(type='submit', value='Add Admin').form-input.btn.btn-solid
+                  form(method='post', action=`/admin/delete/${item.username}`)
+                    div.form-field
+                      input(type='submit', value='Delete Admin').form-input.btn.btn-solid
+                      
+                      
+                      
+                      
+        div.app-content
+          ul.app-content-list
+            li.app-content-list-item Photos
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/upload/photos', enctype='multipart/form-data').app-form
+                  label.form-label Low Resolution Image 
+                    span.red *
+                  div.form-field
+                    input(type='file', name='lres').form-input
+                    span.input-focus
+                  label.form-label Medium Resolution Image 
+                    span.red *
+                  div.form-field
+                    input(type='file', name='mres').form-input
+                    span.input-focus
+                  label.form-label High Resolution Image 
+                    span.red *
+                  div.form-field
+                    input(type='file', name='hres').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Upload Photos').form-input.btn.btn-solid
+                    
+            li.app-content-list-item Blog documents
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/upload/docs', enctype='multipart/form-data').app-form
+                  label.form-label Document File  
+                    span.red *
+                  div.form-field
+                    input(type='file', name='document').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Upload Document').form-input.btn.btn-solid
+                            
+            li.app-content-list-item Videos
+            div.list-item-dropdown-wrapper
+              div.list-item-dropdown
+                form(method='post', action='/upload/video', enctype='multipart/form-data').app-form
+                  label.form-label Video File
+                    span.red *
+                  div.form-field
+                    input(type='file', name='video').form-input
+                    span.input-focus
+                  div.form-field
+                    input(type='submit', value='Upload Video').form-input.btn.btn-solid
+                          
+
+        div.app-content
+          p In development yet...
+          
+          
+        div.app-content
+          ul.app-content-list
+            - let bookings = data.bookings.reduce((h, obj) => Object.assign(h, { [obj.title]:( h[obj.title] || [] ).concat(obj) }), {});
+            each booking,name in bookings
+              li.app-content-list-item=name
+              div.list-item-dropdown-wrapper
+                div.list-item-dropdown
+                  form(method='post', action='/download/csv')
+                    table
+                      tr
+                        th Name
+                        th Email
+                        th Phone
+                        th From
+                      each entry in booking
+                        tr
+                          td=entry.name
+                            input(type='hidden',name='name',value=entry.name)
+                          td=entry.email
+                            input(type='hidden',name='email',value=entry.email)
+                          td=entry.phone
+                            input(type='hidden',name='phone',value=entry.phone)
+                          td=entry.from
+                            input(type='hidden',name='from',value=entry.from)
+                      input(type='submit', value='Download CSV').form-input
+              
+      div.app-nav-wrapper
+        ul.app-nav
+          li.app-nav-item
+            a(href='javascript:toggleContent(0)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-map-marker').nav-icon
+              span.app-nav-item-title Destinations
+          li.app-nav-item
+            a(href='javascript:toggleContent(1)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-building').nav-icon
+              span.app-nav-item-title Cities
+          li.app-nav-item
+            a(href='javascript:toggleContent(2)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-map').nav-icon
+              span.app-nav-item-title Trip Styles
+          li.app-nav-item
+            a(href='javascript:toggleContent(3)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-book').nav-icon
+              span.app-nav-item-title Blogs
+          li.app-nav-item
+            a(href='javascript:toggleContent(4)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-bus').nav-icon
+              span.app-nav-item-title Tours
+          li.app-nav-item
+            a(href='javascript:toggleContent(5)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-group').nav-icon
+              span.app-nav-item-title Accounts      
+          li.app-nav-item
+            a(href='javascript:toggleContent(6)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-upload').nav-icon
+              span.app-nav-item-title Upload
+          li.app-nav-item
+            a(href='javascript:toggleContent(7)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-tree').nav-icon
+              span.app-nav-item-title Site Analytics
+          li.app-nav-item
+            a(href='javascript:toggleContent(8)').nav-link
+              span.nav-icon-wrapper
+                i(class='fa fa-address-card').nav-icon
+              span.app-nav-item-title Bookings

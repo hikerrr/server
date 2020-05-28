@@ -3,17 +3,18 @@ extends layout
 block content
   
   section.content.hero-wrapper#hero
-    for hero in data.store.destinations
-      div(class=hero.visible?"":"off-screen-hero").hero-gadets-wrapper
+    - let i = 0;
+    for hero in data.destinations
+      div(class=(i++ == 0)?"":"off-screen-hero").hero-gadets-wrapper
         div.hero-overlay
-        div(style=`background-image: url(${hero.hres});`).hero-background
+        div(style=`background-image: url('/assets/images/hres/dests/${hero.imageName}');`).hero-background
         div.hero-content-wrapper.animate-leftin
           div.hero-content.container
             header.hero-header.largest-text
               h1=hero.heading
             article.hero-caption
               p=hero.caption
-            a(href=`${hero.href}#ds`).btn.btn-glossy-white More Information
+            a(href=`/destinations/${hero.linkName}#ds`).btn.btn-glossy-white More Information
             div.hero-nav
               div(onclick='heroNavLeft()').arrow-wrapper
                 div.arrow
@@ -25,12 +26,12 @@ block content
       header.ds-header
         h1.heading.large-text.center Destinations
       section.ds
-        each destination in data.store.destinations
-          article.ds-card-wrapper.watch
+        each destination in data.destinations
+          a(href=`/destinations/${destination.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=destination.lres, alt=destination.alt).ds-card-image
+              img(src=`/assets/images/lres/dests/${destination.imageName}`, alt=destination.imageCaption).ds-card-image
               div.overlay
-              a(href=destination.href).ds-card-caption
+              div.ds-card-caption
                 h3.ds-caption-heading=destination.heading
               
   section.ts-global-wrapper#ts
@@ -38,12 +39,12 @@ block content
       header.ds-header
         h1.heading.large-text.center Trip Styles
       section.ds
-        each trip in data.store.tripStyles
-          article.ds-card-wrapper.watch
+        each trip in data.tripStyles
+          a(href=`/styles/${trip.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=trip.lres, alt=trip.alt).ds-card-image
+              img(src=`/assets/images/lres/other/${trip.imageName}`, alt=trip.imageCaption).ds-card-image
               div.overlay
-              a(href=trip.href).ds-card-caption
+              div.ds-card-caption
                 h3.ds-caption-heading=trip.heading
   
   section.tours-global-wrapper#ut
@@ -51,31 +52,50 @@ block content
       header.ds-header
         h1.heading.large-text.center Upcoming Trips
       section.tours-wrapper
-        for tour in data.store.tours['neelam-valley']
+        for tour in data.upComingTours
           div.tour-wrapper
-            img(src=tour.lres, alt=tour.alt).tour-image
+            img(src=`/assets/images/lres/dests/${tour.imageName}`, alt=tour.imageCaption).tour-image
             div.tour-details
               h2.tour-heading=tour.heading
               div.tour-entry
                 i(class='fa fa-calendar').tour-icon
-                span.tour-date #{tour.date}
+                span.tour-date #{tour.startDate}
               div.tour-entry
                 i(class='fa fa-clock-o').tour-icon
-                span.tour-duration #{tour.duration}
+                span.tour-duration #{tour.durationMin}
               div.tour-entry
                 i(class='fa fa-money').tour-icon
-                span.tour-price #{tour.price}
+                span.tour-price #{tour.priceMin}
               hr
               div.tour-description
-                p=tour.description
-              a.btn.btn-glossy.btn-full More Information
+                p=tour.caption
+              a(href='#').btn.btn-glossy.btn-full More Information
 
 
-  section.blogs-global-wrapper#blog
-    section.container.content
+  section.tours-global-wrapper
+    section.content.container#blogs
       header.ds-header
         h1.heading.large-text.center Blogs
-  
+      section.tours-wrapper
+        for blog in data.blogs
+          div.tour-wrapper
+            img(src=`/assets/images/lres/dests/${blog.imageName}`, alt=blog.imageCaption).blog-image
+            div.tour-details
+              h2.tour-heading=blog.title
+              div.tour-entry
+                i(class='fa fa-calendar').tour-icon
+                span.tour-date=blog.writingDate.toDateString()
+              div.tour-entry
+                i(class='fa fa-clock-o').tour-icon
+                span.tour-duration #{blog.readTime} mins read
+              div.tour-entry
+                i(class='fa fa-book').tour-icon
+                span.tour-price=blog.author
+              hr
+              div.tour-description
+                p=blog.caption
+              a(href='#').btn.btn-glossy.btn-full Read More
+
   section.ab-global-wrapper#about
   section.container.content.ds-wrapper
     header.ds-header

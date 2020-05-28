@@ -6,6 +6,7 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
+    // mongoose.connection.db.dropDatabase();
     console.log('Connected to database.');
   })
   .catch((err) => {
