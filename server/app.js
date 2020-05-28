@@ -24,14 +24,14 @@ const app = express();
 const sessionStore = new SessionStore(session);
 const sessionOptions = {
   secret: uuid(),
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   store: new sessionStore({mongooseConnection: mongoose.connection}),
   cookie: {
     name: 'hikerr_session_id',
     secure: true,
     rolling: true,
-    maxAge: 60 * 60 * 1000, // valid for one day
+    maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
   genid() {
     return uuid();

@@ -52,7 +52,7 @@ var app = (0, _express["default"])();
 var sessionStore = new _connectMongo["default"](_expressSession["default"]);
 var sessionOptions = {
   secret: (0, _uuidv.uuid)(),
-  resave: false,
+  resave: true,
   saveUninitialized: true,
   store: new sessionStore({
     mongooseConnection: _mongoose["default"].connection
@@ -61,7 +61,7 @@ var sessionOptions = {
     name: 'hikerr_session_id',
     secure: true,
     rolling: true,
-    maxAge: 60 * 60 * 1000 // valid for one day
+    maxAge: 24 * 60 * 60 * 1000 // valid for one day
 
   },
   genid: function genid() {
