@@ -2,22 +2,25 @@
   "name": "hikerr",
   "version": "0.0.0",
   "private": true,
-  "nodemonConfig" : {
-    "exec" : "npm run dev",
-    "watch":["server/*", "public/*"]
+  "nodemonConfig": {
+    "exec": "npm run dev",
+    "watch": [
+      "server/*",
+      "public/*"
+    ]
   },
   "scripts": {
-    "start": "npm run prod",
-    "prod":"npm-run-all build server",
-    "server":"node ./dist-server/bin/www.js",
+    "start": "node ./dist-server/bin/www.js",
+    "prod": "npm-run-all build server",
+    "server": "node ./dist-server/bin/www.js",
     "dev": "npm-run-all build local",
-    "local":"node -r dotenv/config ./dist-server/bin/www.js",
+    "local": "node -r dotenv/config ./dist-server/bin/www.js",
     "transpile": "babel ./server --out-dir dist-server",
     "clean": "rimraf dist-server",
     "build": "npm-run-all clean transpile",
     "lint": "./node_modules/.bin/eslint --fix --ignore-path .gitignore .",
     "pretty": "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing '**/*.js'",
-    "watch:dev":"nodemon"
+    "watch:dev": "nodemon"
   },
   "dependencies": {
     "bcrypt": "^4.0.1",
