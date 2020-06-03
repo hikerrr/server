@@ -1,13 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Logout</title><g id="Logout"><path d="M15.5,5.5V2A1.5,1.5,0,0,0,14,.5H2A1.5,1.5,0,0,0,.5,2V22A1.5,1.5,0,0,0,2,23.5H14A1.5,1.5,0,0,0,15.5,22V18.5" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/><line x1="6.5" y1="12" x2="23.5" y2="12" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/><polyline points="17.5 6.5 23.5 12 17.5 17.5" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/></g>
-	<metadata>
-		<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
-			<rdf:Description about="https://iconscout.com/legal#licenses" dc:title="ui; interface; user; user interface; exit; logout" dc:description="ui; interface; user; user interface; exit; logout" dc:publisher="Iconscout" dc:date="2017-02-16" dc:format="image/svg+xml" dc:language="en">
-				<dc:creator>
-					<rdf:Bag>
-						<rdf:li>Alpár - Etele Méder</rdf:li>
-					</rdf:Bag>
-				</dc:creator>
-			</rdf:Description>
-		</rdf:RDF>
-    </metadata></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Logout</title><g id="Logout"><path d="M15.5,5.5V2A1.5,1.5,0,0,0,14,.5H2A1.5,1.5,0,0,0,.5,2V22A1.5,1.5,0,0,0,2,23.5H14A1.5,1.5,0,0,0,15.5,22V18.5" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/><line x1="6.5" x2="23.5" y1="12" y2="12" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/><polyline points="17.5 6.5 23.5 12 17.5 17.5" style="fill:none;stroke:#303c42;stroke-linecap:round;stroke-linejoin:round"/></g><metadata><rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"><rdf:Description about="https://iconscout.com/legal#licenses" dc:date="2017-02-16" dc:description="ui; interface; user; user interface; exit; logout" dc:format="image/svg+xml" dc:language="en" dc:publisher="Iconscout" dc:title="ui; interface; user; user interface; exit; logout"><dc:creator><rdf:Bag><rdf:li>Alpár - Etele Méder</rdf:li></rdf:Bag></dc:creator></rdf:Description></rdf:RDF></metadata></svg>
