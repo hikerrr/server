@@ -9,6 +9,10 @@
   background-color: var(--color-white);
 }
 
+.login-heading {
+  color: var(--color-dark);
+}
+
 .form-overlay
 {
   opacity: 0;
@@ -146,7 +150,7 @@
 {
   .login-form-wrapper
   {
-    background: url('/assets/images/hres/dests/kashmir.jpg') no-repeat center center;
+    background: url('/assets/images/hres_kashmir.jpg') no-repeat center center;
     background-size: cover;
   }
 

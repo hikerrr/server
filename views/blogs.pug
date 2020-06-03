@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  section
+    header
+      h1.heading.center.large-text=data.blog.title
+    article
+      p written by #{data.blog.author} at #{data.blog.writingDate}
+      p total read time #{data.blog.readTime}
+      p=data.blog.content

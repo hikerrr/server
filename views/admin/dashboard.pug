@@ -15,9 +15,9 @@ block content
           div.top-options
             span.heading.app-heading Hikerr
           a(href='/admin/logout').app-signout Sign Out
-      div.app-content-wrapper
-        
-        
+      
+      
+      div.app-content-wrapper  
         div.app-content.app-active-content
           ul.app-content-list
             li.app-content-list-item Add a new Destination
@@ -27,27 +27,27 @@ block content
                   label.form-label Link Name 
                     span.red *
                   div.form-field
-                    input(type='text', name='linkName').form-input
+                    input(type='text', name='linkName', required).form-input
                     span.input-focus
                   label.form-label Heading 
                     span.red *
                   div.form-field
-                    input(type='text', name='heading').form-input
+                    input(type='text', name='heading',required).form-input
                     span.input-focus
                   label.form-label Image Name 
                     span.red *
                   div.form-field
-                    input(type='text', name='imageName').form-input
+                    input(type='text', name='imageName', required).form-input
                     span.input-focus
                   label.form-label Image Caption 
                     span.red *
                   div.form-field
-                    input(type='text', name='imageCaption').form-input
+                    input(type='text', name='imageCaption', required).form-input
                     span.input-focus
                   label.form-label Caption 
                     span.red *
                   div.form-field
-                    input(type='text', name='caption').form-input
+                    input(type='text', name='caption', required).form-input
                     span.input-focus
                   div.form-field
                     input(type='submit', value='Add Destination').form-input.btn.btn-solid
@@ -60,27 +60,27 @@ block content
                     label.form-label Link Name 
                       span.red *
                     div.form-field
-                      input(type='text', name='linkName', value=item.linkName).form-input
+                      input(type='text', name='linkName', value=item.linkName, required).form-input
                       span.input-focus
                     label.form-label Heading 
                       span.red *
                     div.form-field
-                      input(type='text', name='heading', value=item.heading).form-input
+                      input(type='text', name='heading', value=item.heading, required).form-input
                       span.input-focus
                     label.form-label Image Name 
                       span.red *
                     div.form-field
-                      input(type='text', name='imageName', value=item.imageName).form-input
+                      input(type='text', name='imageName', value=item.imageName, required).form-input
                       span.input-focus
                     label.form-label Image Caption 
                       span.red *
                     div.form-field
-                      input(type='text', name='imageCaption', value=item.imageCaption).form-input
+                      input(type='text', name='imageCaption', value=item.imageCaption, required).form-input
                       span.input-focus
                     label.form-label Caption 
                       span.red *
                     div.form-field
-                      input(type='text', name='caption', value=item.caption).form-input
+                      input(type='text', name='caption', value=item.caption, required).form-input
                       span.input-focus
                     label.form-label Children Cities 
                       span.red *

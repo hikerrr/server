@@ -3,7 +3,6 @@ import regeneratorRuntime from 'regenerator-runtime';
 import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
-import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import {uuid} from 'uuidv4';
 import mongoose from 'mongoose';
@@ -12,25 +11,37 @@ import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
 import indexRouter from './routes/index';
 import destRouter from './routes/destinations';
-import tourRouter from './routes/tours';
-import tripsRouter from './routes/trips';
+import citiesRouter from './routes/cities';
+import toursRouter from './routes/tours';
 import stylesRouter from './routes/styles';
 import blogsRouter from './routes/blogs';
 import uploadsRouter from './routes/uploads';
 import downloadsRouter from './routes/downloads';
-import '../utilities/Database';
+import apiRouter from './api/index';
+import adminAuth from './authentication/admin';
+import termsRouter from './routes/terms';
+import careersRouter from './routes/careers';
+import './utilities/Database';
 
 const app = express();
 const sessionStore = new SessionStore(session);
+const store = new sessionStore({
+  mongooseConnection: mongoose.connection,
+  autoRemove: 'interval',
+  autoRemoveInterval: 60, // expired sessions will be removed after 1 hour
+});
+
 const sessionOptions = {
-  secret: uuid(),
-  resave: true,
-  saveUninitialized: true,
-  store: new sessionStore({mongooseConnection: mongoose.connection}),
+  secret: uuid(), // uids are good for signing cookies --
+  resave: false, // don't update on requests -- we use static
+  saveUninitialized: false, // don't init session until done manually
+  rolling: true, // renew the expiry time on new requests
+  unset: 'destroy',
+  name: 'hikerr_session_id',
+  store,
   cookie: {
-    name: 'hikerr_session_id',
+    path: '/admin',
     secure: true,
-    rolling: true,
     maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
   genid() {
@@ -51,18 +62,25 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
+app.use(
+  '/admin/dashboard',
+  adminAuth,
+  express.static(path.join(__dirname, '../client/dist'))
+);
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/destinations', destRouter);
-app.use('/tours', tourRouter);
-app.use('/trips', tripsRouter);
+app.use('/cities', citiesRouter);
+app.use('/tours', toursRouter);
 app.use('/styles', stylesRouter);
-app.use('/blogs',blogsRouter);
+app.use('/blogs', blogsRouter);
+app.use('/terms',termsRouter);
+app.use('/careers',careersRouter);
 app.use('/upload', uploadsRouter);
 app.use('/download', downloadsRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

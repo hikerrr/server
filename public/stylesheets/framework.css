@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;700;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap');
 :root
 {
   --primary-font: 'Nunito';
@@ -8,7 +8,7 @@
 
   --container-width: 90%;
 
-  --color-dark: #141414;
+  --color-dark: #2f3136;
   --color-white: #FFFFFF;
   --color-theme: #D2691E;
   --color-grey: #555;
@@ -36,7 +36,6 @@
 /* smooth scrolling and fluid font sizes */
 html
 {
-  height: 100%;
   scroll-behavior : smooth;
   font-size : var(--base-font-size);
 }
@@ -134,9 +133,9 @@ ul
 
 .heading
 {
-  color: var(--color-dark);
+  color: var(--color-white);
   font-weight: bold;
-  margin-bottom: 3rem;
+  margin: calc(65px + 2rem) 0 3rem 0;
 }
 /** custom solid styles end **/
 /** buttons **/
@@ -197,9 +196,65 @@ ul
 
 .content
 {
-  margin-top: 120px;
   transition: transform 0.7s cubic-bezier(0.86,0.01,0.77,0.78);
   transform: translateX(0);
+}
+
+.ds-global-wrapper,
+.ts-global-wrapper,
+.tours-global-wrapper,
+.blogs-global-wrapper,
+.ut-global-wrapper,
+.ab-global-wrapper
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 2rem 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.ds-global-wrapper,
+.tours-global-wrapper,
+.blogs-global-wrapper,
+.ab-global-wrapper {
+  background-color: #eee;
+}
+
+.tours-global-wrapper .heading,
+.ds-global-wrapper .heading,
+.blogs-global-wrapper .heading,
+.ab-global-wrapper .heading {
+  color: var(--color-dark);
+}
+
+.ds-global-wrapper .ds-text,
+.blogs-global-wrapper .ds-text {
+  color: #555;
+}
+
+.ts-global-wrapper,
+.ut-global-wrapper {
+  background-color: #222831;
+}
+
+.ds-header {
+  color: black;
+}
+
+.ds-text {
+  display: block;
+  width: 100%;
+  height: 100%;
+  color: #bbb;
+  margin-bottom: 2.5rem;
+  font-size: var(--font-size-5);
+  letter-spacing: 1px;
+  text-align: center;
 }
 
 .bars-container
@@ -500,36 +555,52 @@ ul
 
 .footer-wrapper
 {
-  width: 100vw;
-  min-height: 120px;
+  position: relative;
+  height: 100%;
+  min-height: 40vh;
   background-color: var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .footer-content-wrapper
 {
   width: 100%;
   height: 100%;
+  padding: 2rem 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: space-between;
+}
+
+.quick-links
+{
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.footer-links
+.quick-links li
 {
-  margin-top: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  justify-items: center;
+  margin: 0.5rem 0 0.5rem 0;
 }
 
-.footer-links li
-{
-  margin: 0.5rem 1rem 0.5rem 0;
+.quick-link-header {
+  font-size: var(--font-size-4);
+  color: #fff;
 }
 
-.footer-links li a, .copyright
+.quick-links li a, .copyright
 {
-  color: var(--color-white);
+  color: #bbb;
+  font-weight: bold;
+  transition: color 0.4s ease;
+}
+
+.quick-links li a:hover {
+  color: #fff;
 }
 
 .copyright
@@ -603,11 +674,11 @@ ul
 
 .hero-caption
 {
-  display: none;
+  display: block;
   color: var(--color-white);
   opacity: 0.6;
   text-align: center;
-  font-size: var(--font-size-5);
+  font-size: var(--font-size-6);
   width: 90%;
 }
 
@@ -666,6 +737,7 @@ ul
 
 .ab
 {
+  position: relative;
   width: 100%;
   height: 100%;
   display: flex;
@@ -712,6 +784,7 @@ ul
 {
   text-align: center;
   color: var(--color-dark);
+  font-size: var(--font-size-6);
 }
 
 .input
@@ -768,6 +841,10 @@ ul
   max-width: 100%;
 }
 
+.trip-wrapper {
+  width: 100%;
+}
+
 .trip-specs-wrapper
 {
   width: 100%;
@@ -791,19 +868,19 @@ ul
 {
   color: var(--color-theme);
   font-size: var(--font-size-2);
-  margin: 0.5rem 0;
+  margin: 2.5rem 0 0.5rem 0;
 }
 
 .trip-spec-header
 {
   text-transform: uppercase;
-  color: var(--color-theme);
+  color: #aaa;
   margin: 0.5rem 0;
 }
 
 .trip-spec-details
 {
-  color: #16407b;
+  color: var(--color-white);
   font-weight: bold;
   text-align: center;
 }
@@ -814,9 +891,49 @@ ul
   min-height: 60vh;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 38px;
+  grid-template-columns: 1fr;
   box-shadow: 0 0 48px rgba(0,0,0,0.67);
   border-radius: 4px;
+}
+
+.terms {
+  list-style-type:none;
+}
+
+.term-item {
+  letter-spacing: 1px;
+  line-height: 1.5;
+  margin: 1rem 0;
+  color: #555;
+  font-size: var(--font-size-5);
+}
+
+.career-list-item {
+  margin: 2.5rem 0;
+}
+
+.career-heading {
+  font-size: var(--font-size-3);
+}
+
+.career-spec {
+  margin: 0.5rem 0;
+}
+
+.career-caption {
+  font-size: var(--font-size-6);
+  color: #444;
+  line-height: 1.5;
+  letter-spacing: 1px;
+}
+
+.career-spec-heading {
+  color: var(--color-theme);
+  font-size: var(--font-size-5);
+}
+
+.career-spec-caption {
+  font-weight: bold;
 }
 
 .itinerary-background
@@ -865,6 +982,20 @@ ul
   display: none;
 }
 
+.form-terms {
+  align-self: flex-start;
+}
+
+.trip-form-checkbox {
+  margin-right: 0.5rem;
+}
+
+.term-link {
+  color: var(--color-white);
+  font-style: italic;
+  text-decoration: underline;
+}
+
 .active-itinerary
 {
   display: block;
@@ -875,7 +1006,7 @@ ul
 {
   z-index: 1;
   width:100%;
-  height: 100%;
+  align-self: end;
 }
 
 .itinerary-day, .itinerary-header-caption
@@ -895,15 +1026,16 @@ ul
 
 .itinerary-nav-list
 {
-  width: 100%;
   height: 100%;
+  width: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .itinerary-nav-list-item
 {
-  height: 100%;
+  height: 52px;
+  width: 100%;
   background-color: #f0f1ed;
   display: flex;
   align-items: center;
@@ -922,7 +1054,6 @@ ul
   display: block;
   text-align: center;
   color: #b2c2b9;
-  transform: rotate(90deg);
 }
 
 .active-itinerary-item span
@@ -932,30 +1063,61 @@ ul
 }
 
 
+.trip-form-outer {
+  max-width: 720px;
+  width: 100%;
+}
 
 .trip-form-wrapper
 {
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
+  padding: 2.5rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
-  box-shadow: 0 0 48px rgba(0,0,0,0.2);
-  border-radius: 4px;
-  opacity: 0.8;
+  background-color: transparent;
+  border-radius: 2px;
+  opacity: 1;
+  box-shadow: 0 0 32px rgba(0,0,0,0.6);
+
+}
+
+.trip-form-submit {
+  cursor: pointer;
+}
+
+.trip-days-wrapper {
+  width: 100%;
+}
+
+.trip-form-background  {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+
+.booking-overlay {
 }
 
 .trip-form
 {
   width: 100%;
   height: 100%;
-  padding: 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 1;
+}
+
+.trip-form-heading
+{
+  font-size: var(--font-size-4);
+  color: white;
+  margin-bottom: 1rem;
+  z-index: 1;
 }
 
 .form-heading
@@ -973,33 +1135,47 @@ ul
 .trip-form label
 {
   align-self: flex-start;
-  margin-top: 1rem;
   font-weight: bold;
+  color: white;
   font-size: var(--font-size-6);
 }
 
 .trip-form input[type='submit']
 {
   width: 100%;
+  color: white;
+  font-size: var(--font-size-6);
+  font-weight: bold;
+  border: 1px solid white;
   background-color: transparent;
+}
+
+.trip-form-input::placeholder {
+  color: #aaa;
+  opacity: 0;
+  letter-spacing: 1px;
+}
+
+select option {
+  background-color: var(--color-dark);
 }
 
 .trip-form-input
 {
   display: block;
   width: 100%;
-  height: 42px;
+  height: 34px;
   outline: none;
   border: none;
-  border: 1px solid #e6e6e6;
-  padding: 0 14px;
-  margin: 1rem;
-  background-color: var(--color-white);
+  border-bottom: 1px solid #e6e6e6;
+  margin-bottom: 2rem;
+  letter-spacing: 1px;
+  background-color: transparent;
+  color: white;
 }
 
 .trip-form-input:focus
 {
-  border: 1px solid var(--color-theme);
 }
 
 .tours-wrapper
@@ -1012,11 +1188,26 @@ ul
 
 .tour-wrapper
 {
-  max-width: 480px;
+  position: relative;
+  max-width: 640px;
   height: 100%;
-  box-shadow: 3px 3px 16px rgba(0,0,0,0.3);
-  border-radius: 8px;
   transition: all 0.4s;
+  background-color: #fafafa;
+  box-shadow: 3px 3px 8px rgba(0,0,0,0.1);
+  padding: 1rem;
+}
+
+.ut-global-wrapper .tour-wrapper {
+  background-color: transparent;
+  box-shadow: 0 0 2px rgba(255,255,255,0.65);
+}
+
+.ut-global-wrapper .tour-wrapper:hover {
+  box-shadow: 3px 3px 24px rgba(255,255,255,0.5);
+}
+
+.tour-image {
+  margin-bottom: 0.5rem;
 }
 
 .tour-wrapper:hover
@@ -1024,27 +1215,30 @@ ul
   box-shadow: 3px 3px 24px rgba(0,0,0,0.5);
 }
 
-.tour-image
-{
-  margin-bottom: 2rem;
-}
-
 .tour-details
 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
-  margin: 0 2rem 2rem 2rem;
+  justify-content: space-between;
+
 }
 
 .tour-heading
 {
   margin-bottom: 1rem;
+  z-index: 1;
+  color: var(--color-dark);
+  font-size: var(--font-size-3);
+}
+
+.ut-global-wrapper .tour-heading {
+  color: var(--color-white);
 }
 
 .tour-entry
 {
+  z-index: 1;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -1057,13 +1251,16 @@ ul
 {
   margin-top: 1rem;
   letter-spacing: 1px;
-  color: var(--color-grey);
+  color: var(--color-dark);
+}
+
+.ut-global-wrapper .tour-description {
+  color: #ccc;
 }
 
 .tour-date, .tour-duration, .tour-price
 {
-  color: var(--color-dark);
-  margin-left: 3rem;
+  color: var(--color-white);
   text-align: right;
   display: inline-block;
 }
@@ -1119,22 +1316,15 @@ ul
     grid-template-columns: 1fr 1fr;
   }
 
-  .itinerary-wrapper
-  {
-    width: 100%;
-    grid-template-columns: 1fr 54px;
-  }
 
-
-
-  .footer-links
-  {
-    grid-template-columns: repeat(4,1fr);
+  .footer-content-wrapper {
+    grid-template-columns: 1fr 1fr;
   }
 
   .hero-caption
   {
     display: inline-block;
+    font-size: var(--font-size-5);
   }
 
   .scroll-wrapper
@@ -1163,7 +1353,28 @@ ul
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  .itinerary-wrapper
+  {
+    width: 100%;
+    grid-template-columns: 1fr 54px;
+  }
 
+  .itinerary-nav-list {
+    flex-direction: column;
+  }
+
+  .itinerary-nav {
+    height: 100%;
+    align-self: center;
+  }
+
+  .itinerary-nav-list-item {
+    height: 100%;
+  }
+
+  .itinerary-nav-list-item span {
+    transform: rotate(90deg);
+  }
 
   .trip-specs-wrapper
   {
@@ -1238,6 +1449,10 @@ ul
     grid-template-columns: repeat(4,1fr);
   }
 
+  .footer-content-wrapper {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
 }
 
 /** for small laptop screens **/
@@ -1251,6 +1466,10 @@ ul
   .trip-form
   {
     width: 60%;
+  }
+
+  .footer-content-wrapper {
+    grid-template-columns: repeat(4,1fr);
   }
 
 

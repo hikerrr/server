@@ -3,8 +3,7 @@ div.scroll-wrapper
     div.arrow.arrow-up
   div(onclick='scrollDown()').arrow-wrapper.arrow-dark
     div.arrow.arrow-down
-      
-header.nav-container
+header.nav-container(data-color=data.navColor)
   div.top-nav.container
     figure.logo-container
       a(href='/').logo.medium-text H.
@@ -24,7 +23,7 @@ header.nav-container
         li
           a(href='/#about', onclick='toggleNavigation()') About
         li
-          a(href='/#contact', onclick='toggleNavigation()') Contact
+          a(href='/careers', onclick='toggleNavigation()') Careers
         li
           a(href='/admin/login') Sign In
       ul.nav-links-social

@@ -5,7 +5,7 @@ block content
   section.content.hero-wrapper#hero
     div.hero-gadets-wrapper
       div.hero-overlay
-      div(style=`background-image: url(/assets/images/hres/dests/${data.destination.imageName});`).hero-background
+      div(style=`background-image: url('/assets/images/hres_${data.destination.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
           header.hero-header.largest-text
@@ -17,12 +17,12 @@ block content
   section.ds-global-wrapper#ds
     section.container.content.ds-wrapper
       header.ds-header
-        h1.heading.large-text.center=data.destination.cities.length?'Places':'No Places Available Yet'
+        h1.heading.large-text.center=data.destination.cities.length?'Places to Visit':''
       section.ds
         each place in data.destination.cities
-          a(href=`/tours/${place.linkName}`).ds-card-wrapper.watch
+          a(href=`/cities/${place.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres/cities/${place.imageName}`, alt=place.imageCaption).ds-card-image
+              img(src=`/assets/images/lres_${place.imageName}`, alt=place.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=place.heading
@@ -30,12 +30,12 @@ block content
   section.ds-global-wrapper#ds
     section.container.content.ds-wrapper
       header.ds-header
-        h1.heading.large-text.center More
+        h1.heading.large-text.center More Destinations
       section.ds
         each destination in data.destinations
           a(href=`/destinations/${destination.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres/dests/${destination.imageName}`, alt=destination.imageCaption).ds-card-image
+              img(src=`/assets/images/lres_${destination.imageName}`, alt=destination.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=destination.heading

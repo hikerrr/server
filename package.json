@@ -7,25 +7,26 @@
     "watch": [
       "server/*",
       "public/*"
+    ],
+    "ignore": [
+      "./server/dist"
     ]
   },
   "scripts": {
-    "start": "node ./dist-server/bin/www.js",
-    "prod": "npm-run-all build server",
-    "server": "node ./dist-server/bin/www.js",
+    "start": "node ./dist/bin/www.js",
     "dev": "npm-run-all build local",
-    "local": "node -r dotenv/config ./dist-server/bin/www.js",
-    "transpile": "babel ./server --out-dir dist-server",
-    "clean": "rimraf dist-server",
+    "local": "node -r dotenv/config ./dist/bin/www.js",
+    "transpile": "babel ./server --out-dir ./dist",
+    "clean": "rimraf ./dist",
     "build": "npm-run-all clean transpile",
     "lint": "./node_modules/.bin/eslint --fix --ignore-path .gitignore .",
     "pretty": "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing '**/*.js'",
     "watch:dev": "nodemon"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "bcrypt": "^4.0.1",
     "connect-mongo": "^3.2.0",
-    "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-session": "^1.17.1",
@@ -58,6 +59,9 @@
     "webpack-cli": "^3.3.11"
   },
   "babel": {
+    "ignore": [
+      "node_modules"
+    ],
     "presets": [
       "@babel/preset-env"
     ]

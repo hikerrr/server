@@ -139,8 +139,9 @@ if (
       document.querySelector('.nav-container').style.backgroundColor =
         'var(--color-dark)';
     } else {
+      let color = document.querySelector('.nav-container').getAttribute('data-color');
       document.querySelector('.nav-container').style.backgroundColor =
-        'transparent';
+        color;
     }
   });
 }
@@ -173,6 +174,12 @@ function setActiveItinerary(index) {
       item.classList.remove('active-itinerary');
     }
   });
+}
+
+if(window.matchMedia('(min-width:768px)').matches) {
+  let color = document.querySelector('.nav-container').getAttribute('data-color');
+  document.querySelector('.nav-container').style.backgroundColor =
+    color;  
 }
 
 loop();

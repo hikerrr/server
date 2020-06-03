@@ -7,7 +7,7 @@ block content
     for hero in data.destinations
       div(class=(i++ == 0)?"":"off-screen-hero").hero-gadets-wrapper
         div.hero-overlay
-        div(style=`background-image: url('/assets/images/hres/dests/${hero.imageName}');`).hero-background
+        div(style=`background-image: url('/assets/images/hres_${hero.imageName}');`).hero-background
         div.hero-content-wrapper.animate-leftin
           div.hero-content.container
             header.hero-header.largest-text
@@ -25,11 +25,13 @@ block content
     section.container.content.ds-wrapper
       header.ds-header
         h1.heading.large-text.center Destinations
+      section.ds-text
+        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
       section.ds
         each destination in data.destinations
           a(href=`/destinations/${destination.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres/dests/${destination.imageName}`, alt=destination.imageCaption).ds-card-image
+              img(src=`/assets/images/lres_${destination.imageName}`, alt=destination.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=destination.heading
@@ -38,73 +40,58 @@ block content
     section.container.content.ds-wrapper
       header.ds-header
         h1.heading.large-text.center Trip Styles
+      section.ds-text
+        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
       section.ds
         each trip in data.tripStyles
           a(href=`/styles/${trip.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres/other/${trip.imageName}`, alt=trip.imageCaption).ds-card-image
+              img(src=`/assets/images/lres_${trip.imageName}`, alt=trip.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=trip.heading
-  
-  section.tours-global-wrapper#ut
-    section.content.container#tours
-      header.ds-header
-        h1.heading.large-text.center Upcoming Trips
-      section.tours-wrapper
-        for tour in data.upComingTours
-          div.tour-wrapper
-            img(src=`/assets/images/lres/dests/${tour.imageName}`, alt=tour.imageCaption).tour-image
-            div.tour-details
-              h2.tour-heading=tour.heading
-              div.tour-entry
-                i(class='fa fa-calendar').tour-icon
-                span.tour-date #{tour.startDate}
-              div.tour-entry
-                i(class='fa fa-clock-o').tour-icon
-                span.tour-duration #{tour.durationMin}
-              div.tour-entry
-                i(class='fa fa-money').tour-icon
-                span.tour-price #{tour.priceMin}
-              hr
-              div.tour-description
-                p=tour.caption
-              a(href='#').btn.btn-glossy.btn-full More Information
 
-
-  section.tours-global-wrapper
+  section.blogs-global-wrapper
     section.content.container#blogs
       header.ds-header
         h1.heading.large-text.center Blogs
+      section.ds-text
+        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
       section.tours-wrapper
         for blog in data.blogs
-          div.tour-wrapper
-            img(src=`/assets/images/lres/dests/${blog.imageName}`, alt=blog.imageCaption).blog-image
+          a(href='#').tour-wrapper
+            img(src=`/assets/images/mres_${blog.imageName}`).tour-image
             div.tour-details
               h2.tour-heading=blog.title
-              div.tour-entry
-                i(class='fa fa-calendar').tour-icon
-                span.tour-date=blog.writingDate.toDateString()
-              div.tour-entry
-                i(class='fa fa-clock-o').tour-icon
-                span.tour-duration #{blog.readTime} mins read
-              div.tour-entry
-                i(class='fa fa-book').tour-icon
-                span.tour-price=blog.author
-              hr
               div.tour-description
-                p=blog.caption
-              a(href='#').btn.btn-glossy.btn-full Read More
+                p Read more
+                
+                
+                
+  section.ut-global-wrapper#ut
+    section.content.container#tours
+      header.ds-header
+        h1.heading.large-text.center Upcoming Trips
+      section.ds-text
+        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
+      section.tours-wrapper
+        for tour in data.upComingTours
+          a(href='#').tour-wrapper
+            img(src=`/assets/images/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
+            div.tour-details
+              h2.tour-heading=tour.heading
+              div.tour-description
+                p=tour.caption
 
   section.ab-global-wrapper#about
-  section.container.content.ds-wrapper
-    header.ds-header
-      h1.heading.large-text.center About Us
-    section.ab
-      video.ab-video(controls, loading='lazy').watch
-        source(src='/assets/videos/about.mp4', type='video/mp4')
-        source(src='/assets/videos/about.ogg', type='video/ogg')
-      article.ab-content-wrapper
-        p.ab-content=data.content
+    section.container.content
+      header.ds-header
+        h1.heading.large-text.center About Us
+      section.ab
+        video.ab-video(controls, loading='lazy').watch
+          source(src='/assets/videos/about.mp4', type='video/mp4')
+          source(src='/assets/videos/about.ogg', type='video/ogg')
+        article.ab-content-wrapper
+          p.ab-content="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
   
   

@@ -11,46 +11,42 @@ import City from './models/City';
 
 const updateDests = async (destName) => {
   // create files at dest path
-  const destPath = path.join(__dirname, '../public', 'destinations',destName);
+  const destPath = path.join(__dirname, '../public', 'destinations', destName);
 
   const destinations = await Destination.find({});
-  const destination = await Destination.find({linkName:destName}).populate({path:'cities',model:'City'});
+  const destination = await Destination.find({linkName: destName}).populate({
+    path: 'cities',
+    model: 'City',
+  });
 
-  if(!destination) {
+  if (!destination) {
     fs.rmdir(destPath, (err) => {
       if (err) throw err;
       console.log(`Directory ${destName} removed.`);
-      return;
     });
   }
 
   fs.mkdir(destPath, (err) => {
     if (err.code != 'EEXIST') throw err;
-    fs.open(
-      path.join(destPath,'index.html'),
-      'w',
-      async (err, file) => {
+    fs.open(path.join(destPath, 'index.html'), 'w', async (err, file) => {
+      const data = {
+        destinations,
+        destination,
+      };
 
-        const data = {
-          destinations,
-          destination,
-        };
+      const destFunction = pug.compileFile(
+        path.join(__dirname, '../views', 'destinations.pug')
+      );
 
-        const destFunction = pug.compileFile(
-          path.join(__dirname, '../views', 'destinations.pug')
-        );
-
-        fs.write(file, destFunction({data}), (err) => {
+      fs.write(file, destFunction({data}), (err) => {
+        if (err) throw err;
+        console.log(`${dest.linkName}.html build done!`);
+        fs.close(file, (err) => {
           if (err) throw err;
-          console.log(`${dest.linkName}.html build done!`);
-          fs.close(file, (err) => {
-            if (err) throw err;
-          });
         });
-      }
-    );
+      });
+    });
   });
-
 };
 
 const updateCities = async () => {
@@ -60,10 +56,10 @@ const updateCities = async () => {
   const cities = await City.find({});
 
   cities.forEach((tour) => {
-    fs.mkdir(path.join(tourPath,tour.linkName), (err) => {
+    fs.mkdir(path.join(tourPath, tour.linkName), (err) => {
       if (err.code != 'EEXIST') throw err;
       fs.open(
-        path.join(tourPath,tour.linkName,'index.html'),
+        path.join(tourPath, tour.linkName, 'index.html'),
         'w',
         async (err, file) => {
           const city = await City.findOne({linkName: tour.linkName}).populate({
@@ -89,9 +85,7 @@ const updateCities = async () => {
         }
       );
     });
-
   });
-
 };
 
 const updateStyles = async () => {
@@ -101,10 +95,10 @@ const updateStyles = async () => {
   const tripStyles = await Style.find({});
 
   tripStyles.forEach((style) => {
-    fs.mkdir(path.join(stylePath,style.linkName), (err) => {
+    fs.mkdir(path.join(stylePath, style.linkName), (err) => {
       if (err.code != 'EEXIST') throw err;
       fs.open(
-        path.join(stylePath,style.linkName,'index.html'),
+        path.join(stylePath, style.linkName, 'index.html'),
         'w',
         async (err, file) => {
           const tripStyle = await Style.findOne({linkName: style.linkName})
@@ -129,13 +123,10 @@ const updateStyles = async () => {
         }
       );
     });
-
   });
 };
 
-const updateBlogs = async () => {
-
-};
+const updateBlogs = async () => {};
 
 const updateTours = async () => {
   // create files at dest path
@@ -144,10 +135,10 @@ const updateTours = async () => {
   const tours = await Tour.find({});
 
   tours.forEach((tour) => {
-    fs.mkdir(path.join(tripPath,tour.linkName), (err) => {
+    fs.mkdir(path.join(tripPath, tour.linkName), (err) => {
       if (err.code != 'EEXIST') throw err;
       fs.open(
-        path.join(tripPath,tour.linkName,'index.html'),
+        path.join(tripPath, tour.linkName, 'index.html'),
         'w',
         async (err, file) => {
           const trip = await Tour.findOne({linkName: tour.linkName});
@@ -170,15 +161,11 @@ const updateTours = async () => {
         }
       );
     });
-
   });
-
 };
 
 const updateIndex = async () => {
-
   try {
-
     const destinations = await Destination.find({});
     const tripStyles = await Style.find({});
     const tours = await Tour.find({});
@@ -192,7 +179,9 @@ const updateIndex = async () => {
       blogs,
     };
 
-    const index = pug.compileFile(path.join(__dirname, '../views', 'index.pug'));
+    const index = pug.compileFile(
+      path.join(__dirname, '../views', 'index.pug')
+    );
 
     // build index.html
     fs.writeFile(
@@ -208,4 +197,11 @@ const updateIndex = async () => {
   }
 };
 
-export default {updateIndex,updateBlogs,updateDests,updateTours,updateCities,updateStyles};
+export default {
+  updateIndex,
+  updateBlogs,
+  updateDests,
+  updateTours,
+  updateCities,
+  updateStyles,
+};
