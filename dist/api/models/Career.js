@@ -10,6 +10,7 @@ var _mongoose = _interopRequireDefault(require("mongoose"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var CareerSchema = new _mongoose["default"].Schema({
+  linkName: String,
   name: String,
   experience: String,
   functionalAreas: String,

@@ -7,4 +7,6 @@ router.route('/').get(tourController.listAll);
 
 router.route('/:linkName').get(tourController.listOne);
 
+router.post('/booking', tourController.bookTour);
+
 export default router;

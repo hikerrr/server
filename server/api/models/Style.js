@@ -6,10 +6,10 @@ const StyleSchema = new mongoose.Schema({
   imageCaption: String,
   heading: String,
   caption: String,
-  cities: [
+  substyles: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'City',
+      ref: 'Substyle',
     },
   ],
   tours: [

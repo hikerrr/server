@@ -6,7 +6,8 @@ const notAllowed = (req, res) => {
 
 const getOne = (req, res) => {
   Destination.findOne({linkName: req.params.linkName})
-    .populate({path: 'cities', model: 'City'})
+    .populate({path: 'tours', model: 'Tour'})
+    .populate({path: 'blog', model: 'Blog'})
     .then((destination) => {
       if (destination) {
         return res.status(200).json(destination);
@@ -21,7 +22,8 @@ const getOne = (req, res) => {
 
 const getAll = (req, res) => {
   Destination.find({})
-    .populate({path: 'cities', model: 'City'})
+    .populate({path: 'tours', model: 'Tour'})
+    .populate({path: 'blog', model: 'Blog'})
     .then((destinations) => {
       if (destinations.length) {
         return res.status(200).json(destinations);
@@ -55,7 +57,8 @@ const addOne = (req, res) => {
         caption: req.body.caption,
         imageName: req.body.imageName || '',
         imageCaption: req.body.imageCaption || '',
-        cities: req.body.cities || [],
+        tours: req.body.tours || [],
+        blog: req.body.blog,
       });
 
       newDestination
@@ -87,15 +90,14 @@ const updateOne = (req, res) => {
           .json({status: false, msg: 'Content Already Exists'});
       }
 
-      if (!req.body.cities) req.body.cities = [];
+      if (!req.body.tours) req.body.tours = [];
       Destination.updateOne({linkName: req.params.linkName}, req.body, {
-        $set: {cities: req.body.cities},
+        $set: {tours: req.body.tours},
       })
         .then((updateResult) => {
           if (updateResult.nModified) {
             return getAll(req, res);
           }
-
           return res
             .status(404)
             .json({status: false, msg: 'Content Not Found'});
@@ -105,9 +107,9 @@ const updateOne = (req, res) => {
         );
     });
   } else {
-    if (!req.body.cities) req.body.cities = [];
+    if (!req.body.tours) req.body.tours = [];
     Destination.updateOne({linkName: req.params.linkName}, req.body, {
-      $set: {cities: req.body.cities},
+      $set: {tours: req.body.tours},
     })
       .then((updateResult) => {
         if (updateResult.nModified) {

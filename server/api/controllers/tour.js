@@ -1,7 +1,47 @@
+import {parse} from 'json2csv';
 import Tour from '../models/Tour';
+import Booking from '../models/Booking';
 
 const notAllowed = (req, res) => {
   res.status(405).json({status: false, msg: 'Method Not Allowed'});
+};
+
+const getAllBookings = (req, res) => {
+  Booking.find({title: req.params.linkName})
+    .then((bookings) => {
+      if (bookings.length) {
+        if (req.query.format && req.query.format === 'csv') {
+          const fields = [
+            'firstName',
+            'lastName',
+            'phone',
+            'email',
+            'gender',
+            'departure',
+            'discountCode',
+          ];
+          const data = [];
+          for (let i = 0; i < bookings.length; i++) {
+            const entry = {};
+            for (let j = 0; j < fields.length; j += 1) {
+              entry[fields[j]] = bookings[i][fields[j]];
+            }
+            data.push(entry);
+          }
+          res.setHeader(
+            'Content-disposition',
+            'attachment; filename=bookings.csv'
+          );
+          res.set('Content-Type', 'text/csv');
+          res.status(200).send(parse(data, {fields}));
+        } else {
+          res.status(200).json(bookings);
+        }
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({status: false, msg: 'Internal Server Error', err});
+    });
 };
 
 const getOne = (req, res) => {
@@ -61,8 +101,8 @@ const addOne = (req, res) => {
         itinerary: req.body.itinerary || [],
         formImage: req.body.formImage,
         status: req.body.status,
-        itineraryImages: req.body.itineraryImages || []
-
+        highlightsImages: req.body.highlightsImages || [],
+        highlightsCaption: req.body.highlightsCaption || '',
       });
 
       newTour
@@ -77,7 +117,9 @@ const addOne = (req, res) => {
             .json({status: false, msg: 'Internal Server Error'});
         })
         .catch((err) =>
-          res.status(500).json({status: false, msg: 'Internal Server Error', err:err})
+          res
+            .status(500)
+            .json({status: false, msg: 'Internal Server Error', err})
         );
     })
     .catch((err) =>
@@ -167,4 +209,5 @@ export default {
   deleteOne,
   deleteAll,
   notAllowed,
+  getAllBookings,
 };

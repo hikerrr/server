@@ -6,7 +6,11 @@ const notAllowed = (req, res) => {
 
 const getOne = (req, res) => {
   Style.findOne({linkName: req.params.linkName})
-    .populate({path: 'cities', model: 'City'})
+    .populate({
+      path: 'substyles',
+      model: 'Substyle',
+      populate: {path: 'tours', model: 'Tour'},
+    })
     .populate({path: 'tours', model: 'Tour'})
     .then((style) => {
       if (style) {
@@ -22,7 +26,11 @@ const getOne = (req, res) => {
 
 const getAll = (req, res) => {
   Style.find({})
-    .populate({path: 'cities', model: 'City'})
+    .populate({
+      path: 'substyles',
+      model: 'Substyle',
+      populate: {path: 'tours', model: 'Tour'},
+    })
     .populate({path: 'tours', model: 'Tour'})
     .then((styles) => {
       if (styles.length) {
@@ -57,7 +65,7 @@ const addOne = (req, res) => {
         caption: req.body.caption,
         imageName: req.body.imageName || '',
         imageCaption: req.body.imageCaption || '',
-        cities: req.body.cities || [],
+        substyles: req.body.substyles || [],
         tours: req.body.tours || [],
       });
 
@@ -91,9 +99,9 @@ const updateOne = (req, res) => {
       }
 
       if (!req.body.tours) req.body.tours = [];
-      if (!req.body.cities) req.body.cities = [];
+      if (!req.body.substyles) req.body.substyles = [];
       Style.updateOne({linkName: req.params.linkName}, req.body, {
-        $set: {cities: req.body.cities, tours: req.body.tours},
+        $set: {substyles: req.body.substyles, tours: req.body.tours},
       })
         .then((updateResult) => {
           if (updateResult.nModified) {
@@ -110,9 +118,9 @@ const updateOne = (req, res) => {
     });
   } else {
     if (!req.body.tours) req.body.tours = [];
-    if (!req.body.cities) req.body.cities = [];
+    if (!req.body.substyles) req.body.substyles = [];
     Style.updateOne({linkName: req.params.linkName}, req.body, {
-      $set: {cities: req.body.cities, tours: req.body.tours},
+      $set: {substyles: req.body.substyles, tours: req.body.tours},
     })
       .then((updateResult) => {
         if (updateResult.nModified) {

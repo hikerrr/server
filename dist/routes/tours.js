@@ -15,5 +15,6 @@ var router = _express["default"].Router();
 
 router.route('/').get(_tour["default"].listAll);
 router.route('/:linkName').get(_tour["default"].listOne);
+router.post('/booking', _tour["default"].bookTour);
 var _default = router;
 exports["default"] = _default;

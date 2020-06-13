@@ -2,6 +2,7 @@
 import regeneratorRuntime from 'regenerator-runtime';
 import createError from 'http-errors';
 import express from 'express';
+import helmet from 'helmet';
 import path from 'path';
 import logger from 'morgan';
 import {uuid} from 'uuidv4';
@@ -11,7 +12,7 @@ import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
 import indexRouter from './routes/index';
 import destRouter from './routes/destinations';
-import citiesRouter from './routes/cities';
+import substylesRouter from './routes/substyles';
 import toursRouter from './routes/tours';
 import stylesRouter from './routes/styles';
 import blogsRouter from './routes/blogs';
@@ -53,6 +54,7 @@ if (app.get('env') == 'development') {
   sessionOptions.cookie.secure = false;
 }
 
+app.use(helmet());
 app.use(session(sessionOptions));
 
 // view engine setup
@@ -72,12 +74,12 @@ app.use(
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);
 app.use('/destinations', destRouter);
-app.use('/cities', citiesRouter);
+app.use('/substyles', substylesRouter);
 app.use('/tours', toursRouter);
 app.use('/styles', stylesRouter);
 app.use('/blogs', blogsRouter);
-app.use('/terms',termsRouter);
-app.use('/careers',careersRouter);
+app.use('/terms', termsRouter);
+app.use('/careers', careersRouter);
 app.use('/upload', uploadsRouter);
 app.use('/download', downloadsRouter);
 app.use('/api', apiRouter);

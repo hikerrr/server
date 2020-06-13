@@ -15,9 +15,13 @@ var DestinationSchema = new _mongoose["default"].Schema({
   imageCaption: String,
   heading: String,
   caption: String,
-  cities: [{
+  blog: {
     type: _mongoose["default"].Types.ObjectId,
-    ref: 'City'
+    ref: 'Blog'
+  },
+  tours: [{
+    type: _mongoose["default"].Types.ObjectId,
+    ref: 'Tour'
   }]
 });
 

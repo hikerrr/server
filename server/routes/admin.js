@@ -12,7 +12,10 @@ router.get('/', adminAuth, (req, res) => {
 });
 
 router.get('/login', (req, res) => {
-  res.render('admin/login', {data:{title:'Login'},loginError: req.query.valid});
+  res.render('admin/login', {
+    data: {title: 'Login'},
+    loginError: req.query.valid,
+  });
 });
 
 router.get('/logout', adminAuth, (req, res) => {

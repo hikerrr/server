@@ -50,7 +50,8 @@ var indexController = /*#__PURE__*/function () {
               destinations: destinations.data,
               tripStyles: tripStyles.data,
               blogs: blogs.data,
-              upComingTours: upComingTours.data
+              upComingTours: upComingTours.data,
+              imageUrl: process.env.AWS_IMAGE_URL
             };
             res.render('index', {
               data: data

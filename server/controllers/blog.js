@@ -8,13 +8,14 @@ const listAll = (req, res) => {
 
 const listOne = async (req, res) => {
   try {
-    let apiUrl = process.env.API_URL;
+    const apiUrl = process.env.API_URL;
 
-    let blog = await axios.get(`${apiUrl}/blogs/${req.params.linkName}`);
+    const blog = await axios.get(`${apiUrl}/blogs/${req.params.linkName}`);
 
-    let data = {
-      title:'Blogs',
+    const data = {
+      title: 'Blogs',
       blog: blog.data,
+      imageUrl:process.env.AWS_IMAGE_URL
     };
 
     res.render('blogs', {data});

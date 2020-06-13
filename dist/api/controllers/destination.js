@@ -20,8 +20,11 @@ var getOne = function getOne(req, res) {
   _Destination["default"].findOne({
     linkName: req.params.linkName
   }).populate({
-    path: 'cities',
-    model: 'City'
+    path: 'tours',
+    model: 'Tour'
+  }).populate({
+    path: 'blog',
+    model: 'Blog'
   }).then(function (destination) {
     if (destination) {
       return res.status(200).json(destination);
@@ -41,8 +44,11 @@ var getOne = function getOne(req, res) {
 
 var getAll = function getAll(req, res) {
   _Destination["default"].find({}).populate({
-    path: 'cities',
-    model: 'City'
+    path: 'tours',
+    model: 'Tour'
+  }).populate({
+    path: 'blog',
+    model: 'Blog'
   }).then(function (destinations) {
     if (destinations.length) {
       return res.status(200).json(destinations);
@@ -84,7 +90,8 @@ var addOne = function addOne(req, res) {
       caption: req.body.caption,
       imageName: req.body.imageName || '',
       imageCaption: req.body.imageCaption || '',
-      cities: req.body.cities || []
+      tours: req.body.tours || [],
+      blog: req.body.blog
     });
     newDestination.save().then(function (saved) {
       if (saved) {
@@ -121,13 +128,13 @@ var updateOne = function updateOne(req, res) {
         });
       }
 
-      if (!req.body.cities) req.body.cities = [];
+      if (!req.body.tours) req.body.tours = [];
 
       _Destination["default"].updateOne({
         linkName: req.params.linkName
       }, req.body, {
         $set: {
-          cities: req.body.cities
+          tours: req.body.tours
         }
       }).then(function (updateResult) {
         if (updateResult.nModified) {
@@ -146,13 +153,13 @@ var updateOne = function updateOne(req, res) {
       });
     });
   } else {
-    if (!req.body.cities) req.body.cities = [];
+    if (!req.body.tours) req.body.tours = [];
 
     _Destination["default"].updateOne({
       linkName: req.params.linkName
     }, req.body, {
       $set: {
-        cities: req.body.cities
+        tours: req.body.tours
       }
     }).then(function (updateResult) {
       if (updateResult.nModified) {

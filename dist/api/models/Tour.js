@@ -22,12 +22,14 @@ var TourSchema = new _mongoose["default"].Schema({
   bestTimeToGo: String,
   formImage: String,
   status: String,
-  itineraryImages: [{
+  highlightsCaption: String,
+  highlightsImages: [{
     type: String
   }],
   itinerary: [{
-    itineraryHeading: String,
-    itineraryCaption: String
+    heading: String,
+    caption: String,
+    image: String
   }]
 });
 

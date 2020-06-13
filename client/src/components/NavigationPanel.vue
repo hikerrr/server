@@ -10,10 +10,10 @@
         </router-link>
       </li>
       <li>
-        <router-link to='/admin/dashboard/cities'>
-          <a href="/admin/dashboard/cities">
+        <router-link to='/admin/dashboard/substyles'>
+          <a href="/admin/dashboard/substyles">
             <i class="fa fa-building"></i>
-            <span>Cities</span>
+            <span>Substyles</span>
           </a>
         </router-link>
       </li>
@@ -50,10 +50,18 @@
         </router-link>
       </li>
       <li>
-        <router-link to='/admin/dashboard/analytics'>
-          <a href="/admin/dashboard/analytics">
+        <router-link to='/admin/dashboard/careers'>
+          <a href="/admin/dashboard/careers">
             <i class="fa fa-tree"></i>
-            <span>Site Analytics</span>
+            <span>Careers</span>
+          </a>
+        </router-link>
+      </li>
+      <li>
+        <router-link to='/admin/dashboard/sections'>
+          <a href="/admin/dashboard/sections">
+            <i class="fa fa-tree"></i>
+            <span>Sections</span>
           </a>
         </router-link>
       </li>
@@ -85,7 +93,6 @@ export default {
     width: 100%;
     min-height: calc(100% - 65px);
     background-color: #2f3136;
-    box-shadow: 1px 0 0 rgba(4,4.5,0.2), 1.5px 0 0 rgba(6,6,7,0.05), 2px 0 0 rgba(4,4.5,3,0.05);
     z-index: 1;
     transform: translateX(-100%);
     transition: transform 0.4s ease;
@@ -124,7 +131,6 @@ export default {
     align-items: center;
     justify-content: center;
     border-radius: 4px;
-    background-color: #40444b;
   }
 
   .navigation-panel ul li a:focus {

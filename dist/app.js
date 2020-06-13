@@ -11,6 +11,8 @@ var _httpErrors = _interopRequireDefault(require("http-errors"));
 
 var _express = _interopRequireDefault(require("express"));
 
+var _helmet = _interopRequireDefault(require("helmet"));
+
 var _path = _interopRequireDefault(require("path"));
 
 var _morgan = _interopRequireDefault(require("morgan"));
@@ -29,7 +31,7 @@ var _index = _interopRequireDefault(require("./routes/index"));
 
 var _destinations = _interopRequireDefault(require("./routes/destinations"));
 
-var _cities = _interopRequireDefault(require("./routes/cities"));
+var _substyles = _interopRequireDefault(require("./routes/substyles"));
 
 var _tours = _interopRequireDefault(require("./routes/tours"));
 
@@ -89,6 +91,7 @@ if (app.get('env') == 'development') {
   sessionOptions.cookie.secure = false;
 }
 
+app.use((0, _helmet["default"])());
 app.use((0, _expressSession["default"])(sessionOptions)); // view engine setup
 
 app.set('views', _path["default"].join(__dirname, '../views'));
@@ -103,7 +106,7 @@ app.use('/admin/dashboard', _admin2["default"], _express["default"]["static"](_p
 app.use('/', _index["default"]);
 app.use('/admin', _admin["default"]);
 app.use('/destinations', _destinations["default"]);
-app.use('/cities', _cities["default"]);
+app.use('/substyles', _substyles["default"]);
 app.use('/tours', _tours["default"]);
 app.use('/styles', _styles["default"]);
 app.use('/blogs', _blogs["default"]);

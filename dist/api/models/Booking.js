@@ -11,10 +11,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var BookingSchema = new _mongoose["default"].Schema({
   title: String,
-  name: String,
+  firstName: String,
+  lastName: String,
   email: String,
   phone: String,
-  from: Date
+  gender: String,
+  departure: String,
+  discountCode: String
 });
 
 var _default = _mongoose["default"].model('Booking', BookingSchema);

@@ -36,7 +36,8 @@ var listOne = /*#__PURE__*/function () {
             data = {
               title: 'Trip Styles',
               navColor: 'transparent',
-              tripStyle: tripStyle.data
+              tripStyle: tripStyle.data,
+              imageUrl: process.env.AWS_IMAGE_URL
             };
             res.render('styles', {
               data: data

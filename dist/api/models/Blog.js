@@ -18,6 +18,10 @@ var BlogSchema = new _mongoose["default"].Schema({
   imageName: String,
   imageCaption: String,
   readTime: Number,
+  status: {
+    type: String,
+    "default": 'none'
+  },
   writingDate: {
     type: Date,
     "default": Date.now

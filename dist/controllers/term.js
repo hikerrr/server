@@ -8,7 +8,8 @@ exports["default"] = void 0;
 var listAll = function listAll(req, res) {
   var data = {
     title: 'Terms & Conditions',
-    navColor: 'var(--color-dark)'
+    navColor: 'var(--color-dark)',
+    imageUrl: process.env.AWS_IMAGE_URL
   };
   res.render('terms', {
     data: data

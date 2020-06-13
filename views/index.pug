@@ -3,35 +3,28 @@ extends layout
 block content
   
   section.content.hero-wrapper#hero
-    - let i = 0;
-    for hero in data.destinations
-      div(class=(i++ == 0)?"":"off-screen-hero").hero-gadets-wrapper
-        div.hero-overlay
-        div(style=`background-image: url('/assets/images/hres_${hero.imageName}');`).hero-background
-        div.hero-content-wrapper.animate-leftin
-          div.hero-content.container
-            header.hero-header.largest-text
-              h1=hero.heading
-            article.hero-caption
-              p=hero.caption
-            a(href=`/destinations/${hero.linkName}#ds`).btn.btn-glossy-white More Information
-            div.hero-nav
-              div(onclick='heroNavLeft()').arrow-wrapper
-                div.arrow
-              div(onclick='heroNavRight()').arrow-wrapper
-                div.arrow.arrow-right
+    div.hero-gadets-wrapper
+      div.hero-overlay
+      div(style=`background-image: url('${data.imageUrl}/hres_hikerr.jpg');`).hero-background
+      div.hero-content-wrapper.animate-leftin
+        div.hero-content.container
+          header.hero-header.largest-text
+            h1 Hikerr
+          article.hero-caption
+            p Hikerr travel and tour creates travel experiences that are tailored to individual needs and desires. It focuses on cultural immersion and active adventures for travelers. Excursions are arranged for national and International travellers as per UNWTO.
+          a(href='#ds').btn.btn-glossy-white Begin exploring
   
   section.ds-global-wrapper#ds
     section.container.content.ds-wrapper
       header.ds-header
         h1.heading.large-text.center Destinations
       section.ds-text
-        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
+        p Choose from a variety of destinations to visit
       section.ds
         each destination in data.destinations
           a(href=`/destinations/${destination.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres_${destination.imageName}`, alt=destination.imageCaption).ds-card-image
+              img(src=`${data.imageUrl}/lres_${destination.imageName}`, alt=destination.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=destination.heading
@@ -41,47 +34,50 @@ block content
       header.ds-header
         h1.heading.large-text.center Trip Styles
       section.ds-text
-        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
+        p Choose from a variety of Trip styles to visit
       section.ds
         each trip in data.tripStyles
           a(href=`/styles/${trip.linkName}`).ds-card-wrapper.watch
             figure.ds-card-image-wrapper
-              img(src=`/assets/images/lres_${trip.imageName}`, alt=trip.imageCaption).ds-card-image
+              img(src=`${data.imageUrl}/lres_${trip.imageName}`, alt=trip.imageCaption).ds-card-image
               div.overlay
               div.ds-card-caption
                 h3.ds-caption-heading=trip.heading
 
-  section.blogs-global-wrapper
-    section.content.container#blogs
-      header.ds-header
-        h1.heading.large-text.center Blogs
-      section.ds-text
-        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
-      section.tours-wrapper
-        for blog in data.blogs
-          a(href='#').tour-wrapper
-            img(src=`/assets/images/mres_${blog.imageName}`).tour-image
-            div.tour-details
-              h2.tour-heading=blog.title
-              div.tour-description
-                p Read more
+  if data.blogs.some(blog => blog.status === 'featured')
+    section.blogs-global-wrapper
+      section.content.container#blogs
+        header.ds-header
+          h1.heading.large-text.center Blogs
+        section.ds-text
+          p Some of our featured blogs
+        section.tours-wrapper
+          for blog in data.blogs
+            if blog.status === 'featured'
+              a(href='#').tour-wrapper
+                img(src=`${data.imageUrl}/mres_${blog.imageName}`).tour-image
+                div.tour-details
+                  h2.tour-heading=blog.title
+                  div.tour-description
+                    p Read more
                 
                 
-                
-  section.ut-global-wrapper#ut
-    section.content.container#tours
-      header.ds-header
-        h1.heading.large-text.center Upcoming Trips
-      section.ds-text
-        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
-      section.tours-wrapper
-        for tour in data.upComingTours
-          a(href='#').tour-wrapper
-            img(src=`/assets/images/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
-            div.tour-details
-              h2.tour-heading=tour.heading
-              div.tour-description
-                p=tour.caption
+  if data.upComingTours.some(tour => tour.status === 'upcoming')        
+    section.ut-global-wrapper#ut
+      section.content.container#tours
+        header.ds-header
+          h1.heading.large-text.center Upcoming Trips
+        section.ds-text
+          p Here are some of our upcoming trips
+        section.tours-wrapper
+          for tour in data.upComingTours
+            if tour.status === 'upcoming'
+              a(href='#').tour-wrapper
+                img(src=`${data.imageUrl}/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
+                div.tour-details
+                  h2.tour-heading=tour.heading
+                  div.tour-description
+                    p=tour.caption
 
   section.ab-global-wrapper#about
     section.container.content

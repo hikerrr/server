@@ -5,7 +5,7 @@ block content
   section.content.hero-wrapper#hero
     div.hero-gadets-wrapper
       div.hero-overlay
-      div(style=`background-image: url('/assets/images/hres_${data.tripStyle.imageName}');`).hero-background
+      div(style=`background-image: url('${data.imageUrl}/hres_${data.tripStyle.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
           header.hero-header.largest-text
@@ -13,42 +13,32 @@ block content
           article.hero-caption
             p=data.tripStyle.caption
           a(href='#ds').btn.btn-glossy-white More Details
-
-  if data.tripStyle.cities.length
-    section.ds-global-wrapper#ds
-      section.container.content
-        header
-          h1.heading.large-text.center=data.tripStyle.cities.length?'Places':''
-        section.ds
-          each place in data.tripStyle.cities
-            article.ds-card-wrapper.watch
-              figure.ds-card-image-wrapper
-                img(src=`/assets/images/lres_${place.imageName}`, alt=place.imageCaption).ds-card-image
-                div.overlay
-                a(href=`/cities/${place.linkName}`).ds-card-caption
-                  h3.ds-caption-heading=place.heading
-                  
-  if data.tripStyle.tours.length       
-    section.ds-global-wrapper#ut
-      section.content.container#tours
+  
+  if data.tripStyle.substyles.length              
+    section.ds-global-wrapper
+      section.container.content.ds-wrapper
         header.ds-header
-          h1.heading.large-text.center=data.tripStyle.tours.length?'Tours':''
-        section.tours-wrapper
-          for tour, key in data.tripStyle.tours
-            div.tour-wrapper
-              img(src=`/assets/images/lres_${tour.imageName}`, alt=tour.imageCaption).tour-image
-              div.tour-details
-                h2.tour-heading=tour.heading
-                div.tour-entry
-                  p Date
-                  span.tour-date=tour.startDate.toDateString()
-                div.tour-entry
-                  p Duration
-                  span.tour-duration=tour.durationMin
-                div.tour-entry
-                  p Price
-                  span.tour-price=tour.priceMin
-                hr
-                div.tour-description
-                  p=tour.caption
-                a(href=`/tours/${tour.linkName}`).btn.btn-glossy.btn-full More Information
+          h1.heading.large-text.center Variations
+        section.ds
+          each variation in data.tripStyle.substyles
+            a(href=`/substyles/${variation.linkName}`).ds-card-wrapper.watch
+              figure.ds-card-image-wrapper
+                img(src=`${data.imageUrl}/mres_${variation.imageName}`, alt=variation.imageCaption).ds-card-image
+                div.overlay
+                div.ds-card-caption
+                  h3.ds-caption-heading=variation.heading
+                  
+                  
+  if data.tripStyle.tours.length              
+    section.ds-global-wrapper
+      section.container.content.ds-wrapper
+        header.ds-header
+          h1.heading.large-text.center Tours
+        section.ds
+          each variation in data.tripStyle.tours
+            a(href=`/tours/${variation.linkName}`).ds-card-wrapper.watch
+              figure.ds-card-image-wrapper
+                img(src=`${data.imageUrl}/mres_${variation.imageName}`, alt=variation.imageCaption).ds-card-image
+                div.overlay
+                div.ds-card-caption
+                  h3.ds-caption-heading=variation.heading

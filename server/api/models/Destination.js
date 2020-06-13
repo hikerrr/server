@@ -6,10 +6,14 @@ const DestinationSchema = new mongoose.Schema({
   imageCaption: String,
   heading: String,
   caption: String,
-  cities: [
+  blog: {
+    type: mongoose.Types.ObjectId,
+    ref: 'Blog',
+  },
+  tours: [
     {
       type: mongoose.Types.ObjectId,
-      ref: 'City',
+      ref: 'Tour',
     },
   ],
 });

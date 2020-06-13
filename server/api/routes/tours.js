@@ -19,4 +19,6 @@ router
   .patch(tourController.updateOne)
   .delete(tourController.deleteOne);
 
+router.route('/:linkName/bookings').get(tourController.getAllBookings);
+
 export default router;

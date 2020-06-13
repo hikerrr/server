@@ -15,9 +15,9 @@ var StyleSchema = new _mongoose["default"].Schema({
   imageCaption: String,
   heading: String,
   caption: String,
-  cities: [{
+  substyles: [{
     type: _mongoose["default"].Schema.Types.ObjectId,
-    ref: 'City'
+    ref: 'Substyle'
   }],
   tours: [{
     type: _mongoose["default"].Schema.Types.ObjectId,

@@ -5,7 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
+var _json2csv = require("json2csv");
+
 var _Tour = _interopRequireDefault(require("../models/Tour"));
+
+var _Booking = _interopRequireDefault(require("../models/Booking"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -13,6 +17,43 @@ var notAllowed = function notAllowed(req, res) {
   res.status(405).json({
     status: false,
     msg: 'Method Not Allowed'
+  });
+};
+
+var getAllBookings = function getAllBookings(req, res) {
+  _Booking["default"].find({
+    title: req.params.linkName
+  }).then(function (bookings) {
+    if (bookings.length) {
+      if (req.query.format && req.query.format === 'csv') {
+        var fields = ['firstName', 'lastName', 'phone', 'email', 'gender', 'departure', 'discountCode'];
+        var data = [];
+
+        for (var i = 0; i < bookings.length; i++) {
+          var entry = {};
+
+          for (var j = 0; j < fields.length; j += 1) {
+            entry[fields[j]] = bookings[i][fields[j]];
+          }
+
+          data.push(entry);
+        }
+
+        res.setHeader('Content-disposition', 'attachment; filename=bookings.csv');
+        res.set('Content-Type', 'text/csv');
+        res.status(200).send((0, _json2csv.parse)(data, {
+          fields: fields
+        }));
+      } else {
+        res.status(200).json(bookings);
+      }
+    }
+  })["catch"](function (err) {
+    res.status(500).json({
+      status: false,
+      msg: 'Internal Server Error',
+      err: err
+    });
   });
 };
 
@@ -86,7 +127,8 @@ var addOne = function addOne(req, res) {
       itinerary: req.body.itinerary || [],
       formImage: req.body.formImage,
       status: req.body.status,
-      itineraryImages: req.body.itineraryImages || []
+      highlightsImages: req.body.highlightsImages || [],
+      highlightsCaption: req.body.highlightsCaption || ''
     });
     newTour.save().then(function (saved) {
       if (saved) {
@@ -218,6 +260,7 @@ var _default = {
   updateOne: updateOne,
   deleteOne: deleteOne,
   deleteAll: deleteAll,
-  notAllowed: notAllowed
+  notAllowed: notAllowed,
+  getAllBookings: getAllBookings
 };
 exports["default"] = _default;

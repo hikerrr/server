@@ -35,7 +35,8 @@ var listOne = /*#__PURE__*/function () {
             blog = _context.sent;
             data = {
               title: 'Blogs',
-              blog: blog.data
+              blog: blog.data,
+              imageUrl: process.env.AWS_IMAGE_URL
             };
             res.render('blogs', {
               data: data

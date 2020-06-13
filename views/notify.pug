@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  
+  div.ds-global-wrapper
+    div.notification-wrapper
+      header
+        h1.large-text.heading=data.heading
+      artcile
+        p=data.msg
+      a(href='mailto:hikerr@mail.com?subject=Server%20Bug').btn.btn-glossy Notify Us

@@ -20,8 +20,12 @@ var getOne = function getOne(req, res) {
   _Style["default"].findOne({
     linkName: req.params.linkName
   }).populate({
-    path: 'cities',
-    model: 'City'
+    path: 'substyles',
+    model: 'Substyle',
+    populate: {
+      path: 'tours',
+      model: 'Tour'
+    }
   }).populate({
     path: 'tours',
     model: 'Tour'
@@ -44,8 +48,12 @@ var getOne = function getOne(req, res) {
 
 var getAll = function getAll(req, res) {
   _Style["default"].find({}).populate({
-    path: 'cities',
-    model: 'City'
+    path: 'substyles',
+    model: 'Substyle',
+    populate: {
+      path: 'tours',
+      model: 'Tour'
+    }
   }).populate({
     path: 'tours',
     model: 'Tour'
@@ -90,7 +98,7 @@ var addOne = function addOne(req, res) {
       caption: req.body.caption,
       imageName: req.body.imageName || '',
       imageCaption: req.body.imageCaption || '',
-      cities: req.body.cities || [],
+      substyles: req.body.substyles || [],
       tours: req.body.tours || []
     });
     newStyle.save().then(function (saved) {
@@ -129,13 +137,13 @@ var updateOne = function updateOne(req, res) {
       }
 
       if (!req.body.tours) req.body.tours = [];
-      if (!req.body.cities) req.body.cities = [];
+      if (!req.body.substyles) req.body.substyles = [];
 
       _Style["default"].updateOne({
         linkName: req.params.linkName
       }, req.body, {
         $set: {
-          cities: req.body.cities,
+          substyles: req.body.substyles,
           tours: req.body.tours
         }
       }).then(function (updateResult) {
@@ -156,13 +164,13 @@ var updateOne = function updateOne(req, res) {
     });
   } else {
     if (!req.body.tours) req.body.tours = [];
-    if (!req.body.cities) req.body.cities = [];
+    if (!req.body.substyles) req.body.substyles = [];
 
     _Style["default"].updateOne({
       linkName: req.params.linkName
     }, req.body, {
       $set: {
-        cities: req.body.cities,
+        substyles: req.body.substyles,
         tours: req.body.tours
       }
     }).then(function (updateResult) {

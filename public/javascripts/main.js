@@ -139,9 +139,10 @@ if (
       document.querySelector('.nav-container').style.backgroundColor =
         'var(--color-dark)';
     } else {
-      let color = document.querySelector('.nav-container').getAttribute('data-color');
-      document.querySelector('.nav-container').style.backgroundColor =
-        color;
+      let color = document
+        .querySelector('.nav-container')
+        .getAttribute('data-color');
+      document.querySelector('.nav-container').style.backgroundColor = color;
     }
   });
 }
@@ -176,10 +177,26 @@ function setActiveItinerary(index) {
   });
 }
 
-if(window.matchMedia('(min-width:768px)').matches) {
-  let color = document.querySelector('.nav-container').getAttribute('data-color');
-  document.querySelector('.nav-container').style.backgroundColor =
-    color;  
+if (window.matchMedia('(min-width:768px)').matches) {
+  let color = document
+    .querySelector('.nav-container')
+    .getAttribute('data-color');
+  document.querySelector('.nav-container').style.backgroundColor = color;
+}
+
+if (document.querySelector('.admin-form')) {
+  document.querySelector('.admin-form').addEventListener('submit', function () {
+    this.preventDefault();
+    let data = {
+      username: document.getElementById('username').value,
+      password: document.getElementById('password').password,
+    };
+    fetch('/admin/login', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      credentials: 'include',
+    });
+  });
 }
 
 loop();

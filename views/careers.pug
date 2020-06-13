@@ -8,27 +8,16 @@ block content
         h1.center.heading.large-text Careers
       div.careers
         ul.careers-list
-          li.career-list-item
-            h3.career-heading Software Engineering Internship
-            div.career-spec
-              p.career-spec-heading Experience 
-              p.career-spec-caption Minimum of 2 - 3 years
-            div.career-spec
-              p.career-spec-heading Functional Areas Concerned 
-              p.career-spec-caption Web development, Web Scraping
-            div.career-spec
-              p.career-spec-heading Description 
-              p.career-caption='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-              a(href='mailto:hikerr@mail.com?subject=Software%20Software%20Engineering%20Intern').btn.btn-glossy Apply Now
-          li.career-list-item
-            h3.career-heading Marketing Agent
-            div.career-spec
-              p.career-spec-heading Experience 
-              p.career-spec-caption Fresh
-            div.career-spec
-              p.career-spec-heading Functional Areas Concerned 
-              p.career-spec-caption Marketing, Finance
-            div.career-spec
-              p.career-spec-heading Description 
-              p.career-caption='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'  
-              a(href='mailto:hikerr@mail.com?subject=Marketing%20Agent').btn.btn-glossy Apply Now
+          each career in data.careers
+            li.career-list-item
+              h3.career-heading=career.name
+              div.career-spec
+                p.career-spec-heading Experience 
+                p.career-spec-caption=career.experience
+              div.career-spec
+                p.career-spec-heading Functional Areas Concerned 
+                p.career-spec-caption=career.functionalAreas
+              div.career-spec
+                p.career-spec-heading Description 
+                p.career-caption=career.description
+                a(href=`mailto:hikerr@mail.com?subject=${career.mailSubject}`).btn.btn-glossy Apply Now

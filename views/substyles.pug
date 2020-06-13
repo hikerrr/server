@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  
+  section.content.hero-wrapper#hero
+    div.hero-gadets-wrapper
+      div.hero-overlay
+      div(style=`background-image: url('${data.imageUrl}/hres_${data.substyle.imageName}');`).hero-background
+      div.hero-content-wrapper.animate-leftin
+        div.hero-content.container
+          header.hero-header.largest-text
+            h1=data.substyle.heading
+          article.hero-caption
+            p=data.substyle.caption
+          a(href='#tours').btn.btn-glossy-white Tours for #{data.substyle.heading}
+  
+  if !data.substyle.tours.length
+    
+  else
+    
+    section.tours-global-wrapper#ut
+      section.content.container#tours
+        header.ds-header
+          h1.heading.large-text.center Tours
+        section.tours-wrapper
+          for tour, key in data.substyle.tours
+            a(href=`/tours/${tour.linkName}`).tour-wrapper
+              img(src=`${data.imageUrl}/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
+              div.tour-details
+                h2.tour-heading=tour.heading
+                div.tour-description
+                  p=tour.caption

@@ -55,7 +55,7 @@ var getAll = function getAll(req, res) {
 };
 
 var addOne = function addOne(req, res) {
-  if (!req.body.title || !req.body.name || !req.body.phone || !req.body.from) {
+  if (!req.body.title || !req.body.firstName || !req.body.lastName || !req.body.phone || !req.body.gender || !req.body.email || !req.body.departure) {
     return res.status(400).json({
       status: false,
       msg: 'Missing Required Content'
@@ -75,10 +75,13 @@ var addOne = function addOne(req, res) {
 
     var newBooking = new _Booking["default"]({
       title: req.body.title,
-      name: req.body.name,
-      email: req.body.email || '',
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       phone: req.body.phone,
-      from: req.body.from
+      email: req.body.email,
+      gender: req.body.gender,
+      departure: req.body.departure,
+      discountCode: req.body.discountCode || 'NA'
     });
     newBooking.save().then(function (saved) {
       if (saved) {

@@ -5,7 +5,7 @@ block content
   section.content.hero-wrapper#hero
     div.hero-gadets-wrapper
       div.hero-overlay
-      div(style=`background-image: url('/assets/images/hres_${data.trip.imageName}');`).hero-background
+      div(style=`background-image: url('${data.imageUrl}/hres_${data.trip.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
           header.hero-header.largest-text
@@ -14,29 +14,7 @@ block content
             p=data.trip.caption
           a(href='#trips').btn.btn-glossy-white Itinerary
           
-  section.ds-global-wrapper
-    section.content.trip-days-wrapper
-      header
-        h2.heading.center.large-text Itinerary
-      div.itinerary-wrapper.container
-        ul.itinerary-list
-          header.itinerary-header
-            p.itinerary-header-caption Itinerary &amp; Guide
-            h2.itinerary-header-heading=data.trip.heading
-          each itin,index in data.trip.itinerary 
-            li(class=index===0?'active-itinerary':'').itinerary-item
-              div(style=`background-image:url('/assets/images/mres_${data.trip.itineraryImages[index]}')`).itinerary-background
-                div.overlay.itinerary-overlay
-              p.itinerary-day Day #{index + 1}
-              h3.itinerary-heading=itin.itineraryHeading
-              p.itinerary-content=itin.itineraryCaption
-        nav.itinerary-nav
-          ul.itinerary-nav-list
-            each itin, index in data.trip.itinerary
-              li(onclick=`setActiveItinerary(${index})`,class=index===0?'active-itinerary-item':'').itinerary-nav-list-item
-                span Day #{index + 1}
-  
-  
+          
   section.ts-global-wrapper
     section.container.content.trip-wrapper#trips
       header
@@ -49,51 +27,88 @@ block content
         div.trip-spec
           i(class='fa fa-calendar').trip-spec-icon
           span.trip-spec-header Holiday length
-          span.trip-spec-details=data.trip.holidayLength
+          span.trip-spec-details #{data.trip.holidayLength} Days
         div.trip-spec
           i(class='fa fa-tag').trip-spec-icon
           span.trip-spec-header Price Guide
-          span.trip-spec-details From $#{data.trip.priceMin} to $#{data.trip.priceMax}
+          span.trip-spec-details Rs #{data.trip.priceMin} - #{data.trip.priceMax}
         div.trip-spec
           i(class='fa fa-map-marker').trip-spec-icon
           span.trip-spec-header Holiday Type
           span.trip-spec-details=data.trip.holidayType
+          
+          
+          
+  section.ds-global-wrapper
+    section.container.content.trip-wrapper#trips
+      header
+        h1.heading.center.large-text Tour Highlights
+      section.highlights-wrapper
+        div.highlights
+          p=data.trip.highlightsCaption
+        each image in data.trip.highlightsImages
+          img(src=`${data.imageUrl}/mres_${image}`).highlights-image
+            
+  section.ds-global-wrapper
+    section.content.trip-days-wrapper
+      header
+        h2.heading.center.large-text Itinerary
+      div.itinerary-wrapper.container
+        ul.itinerary-list
+          header.itinerary-header
+            p.itinerary-header-caption Itinerary &amp; Guide
+            h2.itinerary-header-heading=data.trip.heading
+          each itin,index in data.trip.itinerary 
+            li(class=index===0?'active-itinerary':'').itinerary-item
+              div(style=`background-image:url('${data.imageUrl}/mres_${itin.image}')`).itinerary-background
+                div.overlay.itinerary-overlay
+              p.itinerary-day Day #{index + 1}
+              h3.itinerary-heading=itin.heading
+              p.itinerary-content=itin.caption
+        nav.itinerary-nav
+          ul.itinerary-nav-list
+            each itin, index in data.trip.itinerary
+              li(onclick=`setActiveItinerary(${index})`,class=index===0?'active-itinerary-item':'').itinerary-nav-list-item
+                span Day #{index + 1}
+  
+  
+
         
 
   section.ds-global-wrapper
     section.content.container.trip-form-outer
       header
         h2.heading.center.large-text Book this tour
-      div(style=`background-image:url('/assets/images/hres_${data.trip.formImage}')`).content.trip-form-wrapper.container.trip-form-background
+      div(style=`background-image:url('${data.imageUrl}/mres_${data.trip.formImage}')`).content.trip-form-wrapper.container.trip-form-background
         div.overlay
-        form(method='post', action='/trips/booking').trip-form
-          input(type='hidden', name='title', value=data.trip.heading)
+        form(method='post', action='/tours/booking').trip-form
+          input(type='hidden' name='title' value=data.trip.heading)
           label(for='name') First Name 
             span.red *
-          input(type='text', name='name', placeholder='First Name' required).trip-form-input
+          input(type='text' name='firstName' placeholder='First Name' required).trip-form-input
           label(for='name') Last Name 
             span.red *
-          input(type='text', name='name', placeholder='Last Name' required).trip-form-input
+          input(type='text' name='lastName' placeholder='Last Name' required).trip-form-input
           label(for='name') Email 
             span.red *
-          input(type='email', name='email', placeholder='Email' required).trip-form-input
+          input(type='email' name='email' placeholder='Email' required).trip-form-input
           label(for='name') Phone 
             span.red *
-          input(type='phone', name='phone', min='7', max='7' placeholder='Phone' required).trip-form-input
+          input(type='phone' name='phone' placeholder='Phone' required).trip-form-input
           label Gender 
             span.red *
-          select.trip-form-input
-            option(value='Male') Male
-            option(value='Female') Female
+          select(name='gender').trip-form-input
+            option(name='gender' value='Male') Male
+            option(name='gender' value='Female') Female
           label(for='people') Departure 
             span.red *
-          select.trip-form-input
-            option Lahore
-            option Karachi
-            option Peshawar
+          select(name='departure').trip-form-input
+            option(name='departure' value='Lahore') Lahore
+            option(name='departure' value='Karachi') Karachi
+            option(name='departure' value='Peshawar') Peshawar
           label(for='people') Discount Code
-          input(type='text', name='code', placeholder='Enter discount code').trip-form-input
+          input(type='text' name='discountCode' placeholder='Enter discount code').trip-form-input
           div.form-terms
             input(type='checkbox', name='terms' required).trip-form-checkbox
             a(href='/terms' target='_blank').term-link I agree to the booking terms
-          input(type='submit', value='Book Now').btn.btn-glossy.trip-form-submit
+          input(type='submit' value='Book Now').btn.btn-glossy.trip-form-submit

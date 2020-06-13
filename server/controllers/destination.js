@@ -8,22 +8,53 @@ const listAll = (req, res) => {
 
 const listOne = async (req, res) => {
   try {
-    let apiUrl = process.env.API_URL;
+    const apiUrl = process.env.API_URL;
 
-    let destination = await axios.get(
+    const destResponse = await axios.get(
       `${apiUrl}/destinations/${req.params.linkName}`
     );
-    let destinations = await axios.get(`${apiUrl}/destinations`);
 
-    let data = {
-      title:'Destinations',
-      navColor:'transparent',
-      destination: destination.data,
-      destinations: destinations.data,
+    const destination = destResponse.data;
+
+    const response = await axios.get(`${apiUrl}/styles`);
+    const styles = response.data;
+    const tripStyles = {};
+
+    for (const style of styles) {
+      for (const tour of style.tours) {
+        if (destination.tours.some((t) => t._id === tour._id)) {
+          if (tripStyles[style.heading]) {
+            tripStyles[style.heading].tours.push(tour);
+          } else {
+            tripStyles[style.heading] = [tour];
+          }
+        }
+      }
+      for (const substyle of style.substyles) {
+        for (const tour of substyle.tours) {
+          if (destination.tours.some((t) => t._id === tour._id)) {
+            if (tripStyles[style.heading]) {
+              tripStyles[style.heading].tours.push(tour);
+            } else {
+              tripStyles[style.heading] = [tour];
+            }
+          }
+        }
+      }
+    }
+
+    const data = {
+      title: 'Destinations',
+      navColor: 'transparent',
+      destination,
+      tripStyles,
+      imageUrl:process.env.AWS_IMAGE_URL,
     };
 
     res.render('destinations', {data});
-  } catch (Error) {}
+  } catch (Error) {
+    console.log(Error);
+  }
 };
 
 export default {listOne, listAll};
