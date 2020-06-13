@@ -20,8 +20,7 @@
     "build": "npm-run-all clean transpile",
     "lint": "./node_modules/.bin/eslint --fix ./server",
     "pretty": "./node_modules/.bin/prettier --single-quote --trailing-comma es5 --print-width 80 --write --no-bracket-spacing '**/*.js'",
-    "watch:dev": "nodemon",
-    "heroku-postbuild": "npm run build && cd client && npm run build"
+    "watch:dev": "nodemon"
   },
   "dependencies": {
     "aws-sdk": "^2.696.0",

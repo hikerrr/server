@@ -68,7 +68,7 @@ app.use(express.static(path.join(__dirname, '../public')));
 app.use(
   '/admin/dashboard',
   adminAuth,
-  express.static(path.join(__dirname, '../client/dist'))
+  express.static(path.join(__dirname, '../client/prod'))
 );
 
 app.use('/', indexRouter);
