@@ -18,7 +18,7 @@ const indexController = async (req, res) => {
       tripStyles: tripStyles.data,
       blogs: blogs.data,
       upComingTours: upComingTours.data,
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('index', {data});

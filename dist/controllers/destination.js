@@ -62,8 +62,10 @@ var listOne = /*#__PURE__*/function () {
                     if (destination.tours.some(function (t) {
                       return t._id === tour._id;
                     })) {
-                      if (tripStyles[style.heading]) {
-                        tripStyles[style.heading].tours.push(tour);
+                      if (tripStyles[style.heading] && !tripStyles[style.heading].some(function (t) {
+                        return t._id === tour._id;
+                      })) {
+                        tripStyles[style.heading].push(tour);
                       } else {
                         tripStyles[style.heading] = [tour];
                       }
@@ -93,8 +95,10 @@ var listOne = /*#__PURE__*/function () {
                         if (destination.tours.some(function (t) {
                           return t._id === tour._id;
                         })) {
-                          if (tripStyles[style.heading]) {
-                            tripStyles[style.heading].tours.push(tour);
+                          if (tripStyles[style.heading] && !tripStyles[style.heading].some(function (t) {
+                            return t._id === tour._id;
+                          })) {
+                            tripStyles[style.heading].push(tour);
                           } else {
                             tripStyles[style.heading] = [tour];
                           }

@@ -13,31 +13,32 @@ block content
           article.hero-caption
             p=data.destination.caption
           a(href='#ds').btn.btn-glossy-white Places to visit
-              
-  section.ds-global-wrapper
-    section.container.content
-      header.ds-header
-        h1.heading.large-text.center=data.destination.tours.length?'Places to Visit':''
-      section.ds-text
-        p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
-      section.ds
-        each tour in data.destination.tours
-          a(href=`/tours/${tour.linkName}`).ds-card-wrapper.watch
-            figure.ds-card-image-wrapper
-              img(src=`${data.imageUrl}/lres_${tour.imageName}`, alt=tour.imageCaption).ds-card-image
-              div.overlay
-              div.ds-card-caption
-                h3.ds-caption-heading=tour.heading
   
-  section.ut-global-wrapper
-    section.content.container
-      header.ds-header
-        h1.heading.large-text.center Featured Tours
-      section.ds-text
-        p Here are some of featured tours for you
-      section.tours-wrapper
-        each tour in data.destination.tours
-          if tour.status === 'featured'
+  if data.destination.tours.length            
+    section.ds-global-wrapper
+      section.container.content
+        header.ds-header
+          h1.heading.large-text.center=data.destination.tours.length?'Places to Visit':''
+        section.ds-text
+          p Jammu and Kashmir was a region formerly administered by India as a state from 1954 to 2019, constituting the southern and southeastern portion of the larger Kashmir region, which has been the subject of a dispute between India, Pakistan and China since the mid-20th century.
+        section.ds
+          each tour in data.destination.tours
+            a(href=`/tours/${tour.linkName}`).ds-card-wrapper.watch
+              figure.ds-card-image-wrapper
+                img(src=`${data.imageUrl}/lres_${tour.imageName}`, alt=tour.imageCaption).ds-card-image
+                div.overlay
+                div.ds-card-caption
+                  h3.ds-caption-heading=tour.heading
+  
+  if data.destination.tours.some(t => t.status === 'featured')
+    section.ut-global-wrapper
+      section.content.container
+        header.ds-header
+          h1.heading.large-text.center Featured Tours
+        section.ds-text
+          p Here are some of featured tours for you
+        section.tours-wrapper
+          each tour in data.destination.tours.filter(t => t.status === 'featured')
             a(href=`/tours/${tour.linkName}`).tour-wrapper
               img(src=`${data.imageUrl}/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
               div.tour-details
@@ -45,7 +46,7 @@ block content
                 div.tour-description
                   p=tour.caption
   
-  if data.tripStyles.length                          
+  if Object.keys(data.tripStyles).length                       
     section.ds-global-wrapper
       section.content.container
         header.ds-header
@@ -57,7 +58,7 @@ block content
               h3.medium-text.heading=heading
               div.tours-wrapper
                 each tour in tours
-                  a(href='#').tour-wrapper
+                  a(href=`/tours/${tour.linkName}`).tour-wrapper
                     img(src=`${data.imageUrl}/mres_${tour.imageName}`, alt=tour.imageCaption).tour-image
                     div.tour-details
                       h2.tour-heading=tour.heading

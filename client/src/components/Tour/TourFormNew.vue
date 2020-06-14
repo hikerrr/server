@@ -66,6 +66,16 @@
           </select>
         </div>
         <div class="form-field">
+          <label for="heading" class='form-label'>Total Number of Departure Points <span class='red'> *</span></label>
+          <input @input='updateArrays' v-model='departurePoints' type="number" name="" value="" class='form-input' required>
+          <span class='error' v-if='errors.holidayLength'>{{errors.holidayLength}}</span>
+        </div>
+        <div v-for='(departure,index) in tour.departures' :key="`depPoint-${index}`" class="form-field">
+          <label for="heading" class='form-label'>Departure Point {{index + 1}} <span class='red'> *</span></label>
+          <input v-model='tour.departures[index]' type="text" name="" value="" class='form-input' required>
+          <span class='error' v-if='errors.highlightsImages'>{{errors.highlightsImages}}</span>
+        </div>
+        <div class="form-field">
           <label for="heading" class='form-label'>Highlights Caption <span class='red'> *</span></label>
           <input v-model='tour.highlightsCaption' type="text" name="" value="" class='form-input' required>
           <span class='error' v-if='errors.highlightsCaption'>{{errors.highlightsCaption}}</span>
@@ -109,6 +119,7 @@ export default {
   props: ['id'],
   data() {
     return {
+      departurePoints:0,
       tour:{
         linkName:'',
         imageName:'',
@@ -122,6 +133,7 @@ export default {
         bestTimeToGo:'',
         formImage:'',
         status:'',
+        departures: [],
         highlightsCaption:'',
         highlightsImages:Array(4).fill(''),
         itinerary:Array(1).fill({heading:'',caption:'',image:''})
@@ -150,6 +162,9 @@ export default {
       while(this.tour.itinerary.length < this.tour.holidayLength) {
         this.tour.itinerary.push({caption:'',heading:'',image:''});
       }
+      while(this.tour.departures.length < this.departurePoints) {
+        this.tour.departures.push('');
+      }
     },
     deleteTourById(evt) {
       evt.preventDefault();
@@ -161,6 +176,7 @@ export default {
         return;
       }
       this.tour.itinerary = this.tour.itinerary.slice(0,this.tour.holidayLength);
+      this.tour.departures = this.tour.departures.slice(0,this.departurePoints);
 
       this.loading=true;
       this.msg = 'Saving...';

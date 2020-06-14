@@ -22,6 +22,7 @@ import apiRouter from './api/index';
 import adminAuth from './authentication/admin';
 import termsRouter from './routes/terms';
 import careersRouter from './routes/careers';
+import contactsRouter from './routes/contacts';
 import './utilities/Database';
 
 const app = express();
@@ -41,8 +42,9 @@ const sessionOptions = {
   name: 'hikerr_session_id',
   store,
   cookie: {
-    path: '/admin',
-    secure: true,
+    path: '/',
+    secure: false,
+    httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
   genid() {
@@ -80,6 +82,7 @@ app.use('/styles', stylesRouter);
 app.use('/blogs', blogsRouter);
 app.use('/terms', termsRouter);
 app.use('/careers', careersRouter);
+app.use('/contact', contactsRouter);
 app.use('/upload', uploadsRouter);
 app.use('/download', downloadsRouter);
 app.use('/api', apiRouter);

@@ -54,7 +54,7 @@ block content
         section.tours-wrapper
           for blog in data.blogs
             if blog.status === 'featured'
-              a(href='#').tour-wrapper
+              a(href=`/blogs/${blog.linkName}`).tour-wrapper
                 img(src=`${data.imageUrl}/mres_${blog.imageName}`).tour-image
                 div.tour-details
                   h2.tour-heading=blog.title

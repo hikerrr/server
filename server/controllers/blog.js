@@ -15,7 +15,8 @@ const listOne = async (req, res) => {
     const data = {
       title: 'Blogs',
       blog: blog.data,
-      imageUrl:process.env.AWS_IMAGE_URL
+      navColor: 'var(--color-dark)',
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('blogs', {data});

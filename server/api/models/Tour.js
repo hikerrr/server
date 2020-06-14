@@ -13,6 +13,7 @@ const TourSchema = new mongoose.Schema({
   bestTimeToGo: String,
   formImage: String,
   status: String,
+  departures: [String],
   highlightsCaption: String,
   highlightsImages: [{type: String}],
   itinerary: [

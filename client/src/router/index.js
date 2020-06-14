@@ -39,7 +39,7 @@ const routes = [
   },
   {
     path: '/admin/dashboard/upload',
-    component: UploadPhotos
+    component: UploadPhotos,
   },
   {
     path: '/admin/dashboard/destinations',

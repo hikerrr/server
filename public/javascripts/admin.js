@@ -1,9 +1,6 @@
-
-
 let form = document.getElementById('admin-form');
 
 form.addEventListener('submit', function (evt) {
-
   evt.preventDefault();
 
   let data = {
@@ -13,21 +10,20 @@ form.addEventListener('submit', function (evt) {
 
   let headers = new Headers();
 
-  headers.append('Content-Type','application/json');
-  headers.append('Accept','application/json');
+  headers.append('Content-Type', 'application/json');
+  headers.append('Accept', 'application/json');
 
   fetch('/admin/login', {
     method: 'POST',
-    mode:'same-origin',
-    redirect:'follow',
+    redirect: 'follow',
     credentials: 'include',
     headers: headers,
     body: JSON.stringify(data),
   })
-  .then(response => {
-    if(response.redirected) {
-      window.location.href = response.url;
-    }
-  })
-  .catch(err => console.log(err));
+    .then((response) => {
+      if (response.redirected) {
+        window.location.href = response.url;
+      }
+    })
+    .catch((err) => console.log(err));
 });
