@@ -43,7 +43,7 @@ const sessionOptions = {
   store,
   cookie: {
     path: '/',
-    secure: true,
+    secure: false,
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
