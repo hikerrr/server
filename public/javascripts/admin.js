@@ -20,7 +20,7 @@ form.addEventListener('submit', function (evt) {
     method: 'POST',
     mode:'same-origin',
     redirect:'follow',
-    credentials: 'same-origin',
+    credentials: 'include',
     headers: headers,
     body: JSON.stringify(data),
   })
