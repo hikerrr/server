@@ -102,7 +102,7 @@ app.use(_express["default"].urlencoded({
   extended: true
 }));
 app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public')));
-app.use('/admin/dashboard', _admin2["default"], _express["default"]["static"](_path["default"].join(__dirname, '../client/dist')));
+app.use('/admin/dashboard', _admin2["default"], _express["default"]["static"](_path["default"].join(__dirname, '../client/prod')));
 app.use('/', _index["default"]);
 app.use('/admin', _admin["default"]);
 app.use('/destinations', _destinations["default"]);
