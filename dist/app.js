@@ -21,6 +21,8 @@ var _uuidv = require("uuidv4");
 
 var _mongoose = _interopRequireDefault(require("mongoose"));
 
+var _cors = _interopRequireDefault(require("cors"));
+
 var _expressSession = _interopRequireDefault(require("express-session"));
 
 var _connectMongo = _interopRequireDefault(require("connect-mongo"));
@@ -77,8 +79,9 @@ var sessionOptions = {
   name: 'hikerr_session_id',
   store: store,
   cookie: {
-    path: '/admin',
+    path: '/',
     secure: true,
+    httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000 // valid for one day
 
   },
@@ -91,6 +94,7 @@ if (app.get('env') == 'development') {
   sessionOptions.cookie.secure = false;
 }
 
+app.use((0, _cors["default"])());
 app.use((0, _helmet["default"])());
 app.use((0, _expressSession["default"])(sessionOptions)); // view engine setup
 

@@ -7,6 +7,7 @@ import path from 'path';
 import logger from 'morgan';
 import {uuid} from 'uuidv4';
 import mongoose from 'mongoose';
+import cors from 'cors';
 import session from 'express-session';
 import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
@@ -41,8 +42,9 @@ const sessionOptions = {
   name: 'hikerr_session_id',
   store,
   cookie: {
-    path: '/admin',
+    path: '/',
     secure: true,
+    httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
   genid() {
@@ -54,6 +56,7 @@ if (app.get('env') == 'development') {
   sessionOptions.cookie.secure = false;
 }
 
+app.use(cors());
 app.use(helmet());
 app.use(session(sessionOptions));
 

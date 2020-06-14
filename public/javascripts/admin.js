@@ -18,7 +18,6 @@ form.addEventListener('submit', function (evt) {
 
   fetch('/admin/login', {
     method: 'POST',
-    mode:'same-origin',
     redirect:'follow',
     credentials: 'include',
     headers: headers,
