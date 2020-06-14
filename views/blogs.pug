@@ -1,10 +1,12 @@
 extends layout
 
 block content
-  section
-    header
-      h1.heading.center.large-text=data.blog.title
-    article
-      p written by #{data.blog.author} at #{data.blog.writingDate}
-      p total read time #{data.blog.readTime}
-      p=data.blog.content
+  section.container.blog-container
+    header.blog-header
+      h1.blog-heading=data.blog.title
+      span.blog-writer #{data.blog.author}
+      span.blog-writer #{data.blog.readTime} minutes read
+    article.blog-content
+      -paras = data.blog.content.split('\r');
+      each para in paras
+        p.blog-para=para

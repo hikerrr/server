@@ -7,7 +7,6 @@ import path from 'path';
 import logger from 'morgan';
 import {uuid} from 'uuidv4';
 import mongoose from 'mongoose';
-import cors from 'cors';
 import session from 'express-session';
 import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
@@ -56,7 +55,6 @@ if (app.get('env') == 'development') {
   sessionOptions.cookie.secure = false;
 }
 
-app.use(cors());
 app.use(helmet());
 app.use(session(sessionOptions));
 

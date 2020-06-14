@@ -62,8 +62,8 @@ var listOne = /*#__PURE__*/function () {
                     if (destination.tours.some(function (t) {
                       return t._id === tour._id;
                     })) {
-                      if (tripStyles[style.heading]) {
-                        tripStyles[style.heading].tours.push(tour);
+                      if (tripStyles[style.heading] && !tripStyles[style.heading].includes(tour)) {
+                        tripStyles[style.heading].push(tour);
                       } else {
                         tripStyles[style.heading] = [tour];
                       }
@@ -93,8 +93,8 @@ var listOne = /*#__PURE__*/function () {
                         if (destination.tours.some(function (t) {
                           return t._id === tour._id;
                         })) {
-                          if (tripStyles[style.heading]) {
-                            tripStyles[style.heading].tours.push(tour);
+                          if (tripStyles[style.heading] && !tripStyles[style.heading].includes(tour)) {
+                            tripStyles[style.heading].push(tour);
                           } else {
                             tripStyles[style.heading] = [tour];
                           }
@@ -122,6 +122,7 @@ var listOne = /*#__PURE__*/function () {
               _iterator.f();
             }
 
+            console.log(tripStyles);
             data = {
               title: 'Destinations',
               navColor: 'transparent',
@@ -132,20 +133,20 @@ var listOne = /*#__PURE__*/function () {
             res.render('destinations', {
               data: data
             });
-            _context.next = 20;
+            _context.next = 21;
             break;
 
-          case 17:
-            _context.prev = 17;
+          case 18:
+            _context.prev = 18;
             _context.t0 = _context["catch"](0);
             console.log(_context.t0);
 
-          case 20:
+          case 21:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[0, 17]]);
+    }, _callee, null, [[0, 18]]);
   }));
 
   return function listOne(_x, _x2) {

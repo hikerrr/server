@@ -12,7 +12,7 @@ const listAll = async (req, res) => {
       title: 'Careers',
       careers: careers.data,
       navColor: 'var(--color-dark)',
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('careers', {data});

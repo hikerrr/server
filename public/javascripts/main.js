@@ -1,4 +1,5 @@
 let heroNavIndex = 0;
+let searchData = [];
 
 const toggleNavigation = () => {
   if (window.matchMedia('(min-width:768px)').matches) return;
@@ -69,6 +70,164 @@ const callback = function (entries) {
   entries.forEach((entry) => {
     entry.target.classList.toggle('watch');
   });
+};
+
+const toggleSearchBar = () => {
+  document.querySelector('.search-container').classList.toggle('active');
+};
+
+async function fetchSearchData() {
+  searchData = [];
+
+  let destResponse = await fetch('/api/destinations', {method: 'GET'});
+  let destinations = await destResponse.json();
+
+  for (let dest of destinations) {
+    searchData.push({
+      heading: dest.heading,
+      caption: dest.caption,
+      link: `/destinations/${dest.linkName}`,
+      tags: ['#destinations'],
+    });
+  }
+
+  let styleResponse = await fetch('/api/styles', {method: 'GET'});
+  let styles = await styleResponse.json();
+
+  for (let style of styles) {
+    searchData.push({
+      heading: style.heading,
+      caption: style.caption,
+      link: `/styles/${style.linkName}`,
+      tags:['#tripstyle','#tours','#variation']
+    });
+  }
+
+  let substyleResponse = await fetch('/api/substyles', {method: 'GET'});
+  let substyles = await substyleResponse.json();
+
+  for (let substyle of substyles) {
+    searchData.push({
+      heading: substyle.heading,
+      caption: substyle.caption,
+      link: `/substyles/${substyle.linkName}`,
+      tags:['#variation','#tours']
+    });
+  }
+
+  let tourResponse = await fetch('/api/tours', {method: 'GET'});
+  let tours = await tourResponse.json();
+
+  for (let tour of tours) {
+    searchData.push({
+      heading: tour.heading || '',
+      caption: tour.caption || '',
+      link: `/tours/${tour.linkName}` || '',
+      tags:['#tours']
+    });
+  }
+
+  let blogResponse = await fetch('/api/blogs', {method: 'GET'});
+  let blogs = await blogResponse.json();
+
+  for (let blog of blogs) {
+    searchData.push(
+      {
+        heading: blog.title || '',
+        caption: blog.caption || '',
+        link: `/blogs/${blog.linkName}` || '',
+        tags: ['#blogs','#content','#destinations']
+      }
+    );
+  }
+
+  let careerResponse = await fetch('/api/careers', {method: 'GET'});
+  let careers = await careerResponse.json();
+
+  for (let career of careers) {
+    searchData.push(
+      {
+        heading: career.name || '',
+        caption: career.description || '',
+        link: '/careers',
+        tags: ['#careers','#jobs','#oppurtunities']
+      }
+    );
+  }
+}
+
+const updateSearchResults = () => {
+  let query = document.querySelector('.search-field').value;
+  let words = query.split(' ');
+
+  let result = [];
+
+  for (let word of words) {
+    if (word === '') continue;
+    let regex = new RegExp(word, 'gi');
+    for (let d of searchData) {
+      if (d.heading.match(regex) || d.caption.match(regex) || d.tags.some(tag => tag.match(regex))) {
+        d.heading.replace(regex, '');
+        result.push(d);
+      }
+    }
+  }
+
+  let list = document.querySelector('.search-list');
+
+  list.innerHTML = '';
+
+  let listItem = document.createElement('li');
+  let anchor = document.createElement('a');
+  let heading = document.createElement('span');
+
+  listItem.classList.add('search-list-item');
+  heading.classList.add('link-heading');
+
+  heading.innerHTML = 'No search resutls yet :(';
+
+  anchor.appendChild(heading);
+  listItem.appendChild(anchor);
+
+  if (result.length === 0) {
+    list.appendChild(listItem);
+    return;
+  }
+
+  for (let elem of result) {
+    let listItem = document.createElement('li');
+    let anchor = document.createElement('a');
+    let heading = document.createElement('span');
+    let caption = document.createElement('span');
+    let tagList = document.createElement('ul');
+
+    listItem.classList.add('search-list-item');
+    heading.classList.add('link-heading');
+    caption.classList.add('link-caption');
+    tagList.classList.add('link-tags');
+
+    heading.innerHTML = elem.heading;
+    caption.innerHTML = elem.caption;
+
+    anchor.href = elem.link;
+    anchor.target = '_blank';
+
+    anchor.appendChild(heading);
+    anchor.appendChild(caption);
+
+    listItem.appendChild(anchor);
+
+    list.appendChild(listItem);
+
+    for (let tag of elem.tags) {
+      let tagItem = document.createElement('li');
+      tagItem.classList.add('link-tag');
+      tagItem.innerHTML = tag;
+      tagList.appendChild(tagItem);
+    }
+
+    anchor.appendChild(tagList);
+  }
 };
 
 // const observer = new IntersectionObserver(callback);
@@ -184,5 +343,6 @@ if (window.matchMedia('(min-width:768px)').matches) {
   document.querySelector('.nav-container').style.backgroundColor = color;
 }
 
+window.addEventListener('load', fetchSearchData);
 
 loop();

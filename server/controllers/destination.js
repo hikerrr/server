@@ -23,8 +23,11 @@ const listOne = async (req, res) => {
     for (const style of styles) {
       for (const tour of style.tours) {
         if (destination.tours.some((t) => t._id === tour._id)) {
-          if (tripStyles[style.heading]) {
-            tripStyles[style.heading].tours.push(tour);
+          if (
+            tripStyles[style.heading] &&
+            !tripStyles[style.heading].includes(tour)
+          ) {
+            tripStyles[style.heading].push(tour);
           } else {
             tripStyles[style.heading] = [tour];
           }
@@ -33,8 +36,11 @@ const listOne = async (req, res) => {
       for (const substyle of style.substyles) {
         for (const tour of substyle.tours) {
           if (destination.tours.some((t) => t._id === tour._id)) {
-            if (tripStyles[style.heading]) {
-              tripStyles[style.heading].tours.push(tour);
+            if (
+              tripStyles[style.heading] &&
+              !tripStyles[style.heading].includes(tour)
+            ) {
+              tripStyles[style.heading].push(tour);
             } else {
               tripStyles[style.heading] = [tour];
             }
@@ -43,12 +49,14 @@ const listOne = async (req, res) => {
       }
     }
 
+    console.log(tripStyles);
+
     const data = {
       title: 'Destinations',
       navColor: 'transparent',
       destination,
       tripStyles,
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('destinations', {data});

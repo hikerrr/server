@@ -36,6 +36,7 @@ var listOne = /*#__PURE__*/function () {
             data = {
               title: 'Blogs',
               blog: blog.data,
+              navColor: 'var(--color-dark)',
               imageUrl: process.env.AWS_IMAGE_URL
             };
             res.render('blogs', {

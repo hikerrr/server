@@ -36,3 +36,18 @@ header.nav-container(data-color=data.navColor)
         li
           a(href='#')
             i(class='fa fa-instagram')
+    a(href='#' onclick='toggleSearchBar()')
+      i.fa.fa-search.search-icon
+div.search-container
+  div.search-interface.container
+    input(type='text' placeholder='Search...' oninput='updateSearchResults()').search-field
+    div(onclick='toggleSearchBar()').search-cross
+  div.search-results.container
+    ul.search-list
+      li.search-list-item
+        a(href='#')
+          span.link-heading No results yet :(
+          ul.link-tags
+            li.link-tag #Tour
+            li.link-tag #Destination
+            li.link-tag #Blog

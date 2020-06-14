@@ -18,7 +18,7 @@ const listOne = async (req, res) => {
     const data = {
       title: substyle.heading,
       substyle,
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('substyles', {data});

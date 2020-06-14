@@ -45,7 +45,7 @@ block content
                 div.tour-description
                   p=tour.caption
   
-  if data.tripStyles.length                          
+  if Object.keys(data.tripStyles).length                       
     section.ds-global-wrapper
       section.content.container
         header.ds-header

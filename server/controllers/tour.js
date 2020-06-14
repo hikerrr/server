@@ -13,7 +13,7 @@ const listOne = async (req, res) => {
     const data = {
       title: 'Tours',
       trip: trip.data,
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     return res.render('tours', {data});

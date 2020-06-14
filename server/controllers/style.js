@@ -18,7 +18,7 @@ const listOne = async (req, res) => {
       title: 'Trip Styles',
       navColor: 'transparent',
       tripStyle: tripStyle.data,
-      imageUrl:process.env.AWS_IMAGE_URL,
+      imageUrl: process.env.AWS_IMAGE_URL,
     };
 
     res.render('styles', {data});
