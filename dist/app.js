@@ -51,6 +51,8 @@ var _terms = _interopRequireDefault(require("./routes/terms"));
 
 var _careers = _interopRequireDefault(require("./routes/careers"));
 
+var _contacts = _interopRequireDefault(require("./routes/contacts"));
+
 require("./utilities/Database");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -113,6 +115,7 @@ app.use('/styles', _styles["default"]);
 app.use('/blogs', _blogs["default"]);
 app.use('/terms', _terms["default"]);
 app.use('/careers', _careers["default"]);
+app.use('/contact', _contacts["default"]);
 app.use('/upload', _uploads["default"]);
 app.use('/download', _downloads["default"]);
 app.use('/api', _index2["default"]); // catch 404 and forward to error handler

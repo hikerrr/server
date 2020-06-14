@@ -15,7 +15,7 @@ block content
           a(href='#trips').btn.btn-glossy-white Itinerary
           
           
-  section.ts-global-wrapper
+  section.ds-global-wrapper.details-wrapper
     section.container.content.trip-wrapper#trips
       header
         h1.heading.center.large-text Details
@@ -103,9 +103,8 @@ block content
           label(for='people') Departure 
             span.red *
           select(name='departure').trip-form-input
-            option(name='departure' value='Lahore') Lahore
-            option(name='departure' value='Karachi') Karachi
-            option(name='departure' value='Peshawar') Peshawar
+            each departure in data.trip.departures
+              option(name='departure' value=departure)=departure
           label(for='people') Discount Code
           input(type='text' name='discountCode' placeholder='Enter discount code').trip-form-input
           div.form-terms

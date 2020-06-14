@@ -101,6 +101,7 @@ const addOne = (req, res) => {
         itinerary: req.body.itinerary || [],
         formImage: req.body.formImage,
         status: req.body.status,
+        departures: req.body.departures || [],
         highlightsImages: req.body.highlightsImages || [],
         highlightsCaption: req.body.highlightsCaption || '',
       });

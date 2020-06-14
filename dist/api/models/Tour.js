@@ -22,6 +22,7 @@ var TourSchema = new _mongoose["default"].Schema({
   bestTimeToGo: String,
   formImage: String,
   status: String,
+  departures: [String],
   highlightsCaption: String,
   highlightsImages: [{
     type: String
