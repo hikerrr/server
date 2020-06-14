@@ -4,7 +4,7 @@ div.scroll-wrapper
   div(onclick='scrollDown()').arrow-wrapper.arrow-dark
     div.arrow.arrow-down
 header.nav-container(data-color=data.navColor)
-  div.top-nav.container
+  div.top-nav
     figure.logo-container
       a(href='/').logo.medium-text H.
         //img(src='/images/logo.png', alt='logo').logo
@@ -25,7 +25,9 @@ header.nav-container(data-color=data.navColor)
         li
           a(href='/careers', onclick='toggleNavigation()') Careers
         li
-          a(href='/admin/login') Sign In
+          div.flag-wrapper.phone-flag
+            span.flag-phone +92 344 2617246
+            img(src='/assets/flag.png').flag
       ul.nav-links-social
         li
           a(href='https://www.facebook.com/hikerrtravel')
@@ -37,7 +39,10 @@ header.nav-container(data-color=data.navColor)
           a(href='#')
             i(class='fa fa-instagram')
     a(href='#' onclick='toggleSearchBar()')
-      i.fa.fa-search.search-icon
+      i.fa.fa-search.search-icon  
+    div.flag-wrapper.laptop-flag
+      span.flag-phone +92 344 2617246
+      img(src='/assets/flag.png').flag
 div.search-container
   div.search-interface.container
     input(type='text' placeholder='Search...' oninput='updateSearchResults()').search-field

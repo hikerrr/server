@@ -263,6 +263,27 @@ ul
   flex-wrap: wrap;
 }
 
+.flag-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.laptop-flag {
+  display: none;
+}
+
+
+.flag {
+  max-width: 40px;
+  height: auto;
+}
+
+.flag-phone {
+  margin: 0 0.5rem;
+  color: var(--color-white);
+  font-size: var(--font-size-6);
+}
+
 .link-tag {
   color: var(--color-theme);
   font-size: var(--font-size-5);
@@ -585,11 +606,13 @@ ul
 .top-nav
 {
   position: relative;
-  width: 100%;
+  max-width: 90%;
+  margin: 0 auto;
   height: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: center;
 }
 
 .logo-container {
@@ -1516,6 +1539,11 @@ select option {
     --base-font-size: 16px;
   }
 
+  .top-nav {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
   .itinerary-header-heading
   {
     font-size: var(--font-size-2);
@@ -1592,11 +1620,20 @@ select option {
     box-shadow: none;
   }
 
+  .phone-flag {
+    display: none;
+  }
+
   .nav-links-container
   {
+    width: auto;
     background-color: transparent;
     position: relative;
     transform: translate(0);
+  }
+
+  .logo-container {
+    flex-grow: auto;
   }
 
   .nav-links-generic
@@ -1607,7 +1644,7 @@ select option {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
   }
   .nav-links-generic li { margin: 0 0.5rem; }
 
@@ -1641,8 +1678,12 @@ select option {
     width: 60%;
   }
 
+  .laptop-flag {
+    display: flex;
+    margin-left: 1rem;
+  }
 
-    .highlights-wrapper {
+  .highlights-wrapper {
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr;
       align-items: stretch;
