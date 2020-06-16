@@ -77,6 +77,9 @@ const toggleSearchBar = () => {
 };
 
 async function fetchSearchData() {
+
+  document.body.classList.remove('preload');
+
   searchData = [];
 
   let destResponse = await fetch('/api/destinations', {method: 'GET'});
