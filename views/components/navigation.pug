@@ -10,7 +10,7 @@ header.nav-container(data-color=data.navColor)
         //img(src='/images/logo.png', alt='logo').logo
     div.bars-container(onclick='toggleNavigation()')
         span.bar-middle
-    nav.nav-links-container
+    nav.nav-links-container.preload
       ul.nav-links-generic
         li
           a(href='/', onclick='toggleNavigation()') Home
@@ -25,26 +25,30 @@ header.nav-container(data-color=data.navColor)
         li
           a(href='/careers', onclick='toggleNavigation()') Careers
         li
-          a(href='/contact', onclick='toggleNavigation()') Contact
-        li
           div.flag-wrapper.phone-flag
-            span.flag-phone +92 344 2617246
-            img(src='/assets/flag.png').flag
+            span.flag-phone Contact Us
+              div.flag-dropdown
+                span.flag-email hiker@mail.com
+                span.flag-number +92 344 2617246
+            img(src='/assets/images/flag.png').flag
       ul.nav-links-social
         li
           a(href='https://www.facebook.com/hikerrtravel')
-            i(class='fa fa-facebook')
+            i(class='fab fa-facebook')
         li
           a(href='#')
-            i(class='fa fa-twitter')
+            i(class='fab fa-twitter')
         li
           a(href='#')
-            i(class='fa fa-instagram')
+            i(class='fab fa-instagram')
     a(href='#' onclick='toggleSearchBar()')
       i.fa.fa-search.search-icon  
     div.flag-wrapper.laptop-flag
-      span.flag-phone +92 344 2617246
-      img(src='/assets/flag.png').flag
+      span.flag-phone Contact Us
+        div.flag-dropdown
+          span.flag-email hiker@mail.com
+          span.flag-number +92 344 2617246
+      img(src='/assets/images/flag.png').flag
 div.search-container
   div.search-interface.container
     input(type='text' placeholder='Search...' oninput='updateSearchResults()').search-field

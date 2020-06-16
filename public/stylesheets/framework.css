@@ -1,8 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;0,900;1,400&family=Roboto:wght@300;400;500;700&display=swap');
 :root
 {
-  --primary-font: 'Roboto';
-  --secondary-font: 'Roboto';
+  --primary-font: 'Josefin Slab';
+  --secondary-font: 'Aileron';
   --base-font-size: 14px;
 
   --container-width: 90%;
@@ -52,7 +51,6 @@ html
 body
 {
   height: 100%;
-  font-family: var(--primary-font);
   font-size: 1rem;
   overflow-x: hidden;
   /** disable scroll bars in explorer and edge **/
@@ -98,6 +96,7 @@ a,
 span
 {
   font-family: var(--secondary-font);
+  font-weight: normal;
 }
 
 ul
@@ -141,7 +140,8 @@ ul
 .heading
 {
   color: var(--color-white);
-  font-weight: bold;
+  font-family: var(--primary-font);
+  font-weight: normal;
   margin: calc(65px + 2rem) 0 3rem 0;
 }
 /** custom solid styles end **/
@@ -292,9 +292,57 @@ ul
 }
 
 .flag-phone {
+  position: relative;
+  cursor: pointer;
   margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 32px;
+  background-color: var(--color-theme);
   color: var(--color-white);
   font-size: var(--font-size-6);
+  transition: all 0.2s ease;
+}
+
+.flag-dropdown {
+  position: absolute;
+  top: calc(20px + 100%);
+  left: 0;
+  width: 200px;
+  height: 300%;
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:center;
+  box-shadow: 3px 3px 32px rgba(0,0,0,0.2);
+  transition: 0.4s ease;
+  display: none;
+}
+
+.flag-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 30%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 20px;
+  height: 20px;
+  background-color: var(--color-white);
+}
+
+.flag-email, .flag-number {
+  font-weight: bold;
+  margin: 0.2rem 0;
+}
+
+.flag-phone:hover {
+  opacity: 0.9;
+  background-color: var(--color-theme);
+}
+
+.flag-phone:hover .flag-dropdown {
+  display: flex;
 }
 
 .link-tag {
@@ -333,7 +381,8 @@ ul
 
 .link-heading {
   color: var(--color-white);
-  font-size: var(--font-size-4);
+  font-size: var(--font-size-3);
+  font-family: var(--primary-font);
   display: block;
   margin-bottom: 0.3rem;
 }
@@ -703,6 +752,7 @@ ul
 {
   display: block;
   text-align: left;
+  font-family: var(--primary-font);
   font-size: var(--font-size-4);
   transition: all 0.4s ease;
   color: var(--color-white);
@@ -783,8 +833,8 @@ ul
 
 .quick-links li a, .copyright
 {
+  font-family: var(--secondary-font);
   color: #bbb;
-  font-weight: bold;
   transition: color 0.4s ease;
 }
 
@@ -842,14 +892,6 @@ ul
   justify-content: center;
 }
 
-.hero-header h1
-{
-  text-align:center;
-  font-size: var(--font-size-1);
-  font-weight: lighter;
-  color: var(--color-white);
-}
-
 .hero-background
 {
   width: 100%;
@@ -865,8 +907,10 @@ ul
 {
   display: block;
   color: var(--color-white);
-  opacity: 0.6;
-  text-align: center;
+  opacity: 0.8;
+  text-align: justify;
+  text-justify: distribute;
+  word-break: break-all;
   font-size: var(--font-size-6);
   width: 90%;
 }
@@ -1208,6 +1252,7 @@ ul
 
 .itinerary-header-heading
 {
+  font-family: var(--primary-font);
   color: var(--color-white);
   font-size: var(--font-size-3);
   margin: 2rem 0;
@@ -1326,6 +1371,7 @@ ul
   align-self: flex-start;
   font-weight: bold;
   color: white;
+  font-family: var(--primary-font);
   font-size: var(--font-size-6);
 }
 
@@ -1441,13 +1487,18 @@ select option {
 .tour-heading
 {
   margin-bottom: 1rem;
+  font-family: var(--primary-font);
   z-index: 1;
   color: var(--color-dark);
   font-size: var(--font-size-3);
+  font-weight: normal;
 }
 
 .ds-caption-heading {
-  color: #ddd;
+  color: var(--color-white);
+  font-family: var(--primary-font);
+  font-weight: normal;
+  font-size: var(--font-size-4);
 }
 
 .ut-global-wrapper .tour-heading {
@@ -1674,6 +1725,7 @@ select option {
   .nav-links-generic li a
   {
     font-size: 1rem;
+    font-size: var(--font-size-5);
     font-weight: normal;
     text-transform: capitalize;
     color: var(--color-white);

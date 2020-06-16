@@ -78,7 +78,7 @@ const toggleSearchBar = () => {
 
 async function fetchSearchData() {
 
-  document.body.classList.remove('preload');
+  document.querySelector('.nav-links-container').classList.remove('preload');
 
   searchData = [];
 
