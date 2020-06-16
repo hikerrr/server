@@ -28,7 +28,6 @@ var adminAuth = function adminAuth(req, res, next) {
       res.redirect('/admin/login');
     });
   } else {
-    console.log(1);
     res.redirect('/admin/login');
   }
 };

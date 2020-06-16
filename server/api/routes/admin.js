@@ -1,22 +1,23 @@
 import express from 'express';
 import adminController from '../controllers/admin';
+import adminAuth from '../../authentication/admin';
 
 const router = express.Router();
 
 router
   .route('/')
-  .get(adminController.getAll)
-  .post(adminController.addOne)
+  .get(adminAuth,adminController.getAll)
+  .post(adminAuth,adminController.addOne)
   .put(adminController.notAllowed)
   .patch(adminController.notAllowed)
-  .delete(adminController.deleteAll);
+  .delete(adminAuth,adminController.deleteAll);
 
 router
   .route('/:username')
-  .get(adminController.getOne)
+  .get(adminAuth,adminController.getOne)
   .post(adminController.notAllowed)
-  .put(adminController.updateOne)
-  .patch(adminController.updateOne)
-  .delete(adminController.deleteOne);
+  .put(adminAuth,adminController.updateOne)
+  .patch(adminAuth,adminController.updateOne)
+  .delete(adminAuth,adminController.deleteOne);
 
 export default router;

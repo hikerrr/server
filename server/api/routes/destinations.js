@@ -1,22 +1,23 @@
 import express from 'express';
 import destinationController from '../controllers/destination';
+import adminAuth from '../../authentication/admin';
 
 const router = express.Router();
 
 router
   .route('/')
   .get(destinationController.getAll)
-  .post(destinationController.addOne)
+  .post(adminAuth,destinationController.addOne)
   .put(destinationController.notAllowed)
   .patch(destinationController.notAllowed)
-  .delete(destinationController.deleteAll);
+  .delete(adminAuth,destinationController.deleteAll);
 
 router
   .route('/:linkName')
   .get(destinationController.getOne)
   .post(destinationController.notAllowed)
-  .put(destinationController.updateOne)
-  .patch(destinationController.updateOne)
-  .delete(destinationController.deleteOne);
+  .put(adminAuth,destinationController.updateOne)
+  .patch(adminAuth,destinationController.updateOne)
+  .delete(adminAuth,destinationController.deleteOne);
 
 export default router;
