@@ -31,7 +31,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.preload * {
+.preload, .preload * {
   -webkit-transition: none !important;
  -moz-transition: none !important;
  -ms-transition: none !important;
