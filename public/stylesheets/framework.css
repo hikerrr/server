@@ -914,12 +914,16 @@ ul
   display: block;
   color: var(--color-white);
   opacity: 0.8;
-  text-align: justify;
-  text-justify: distribute;
-  word-break: break-all;
   font-size: var(--font-size-6);
   width: 90%;
 }
+
+.hero-caption, .ds-text
+ {
+   text-align: justify;
+   text-justify: distribute;
+   word-break: break-all;
+ }
 
 .hero-nav
 {
