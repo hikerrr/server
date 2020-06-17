@@ -72,7 +72,6 @@ main
 /** navigation gadets **/
 .logo
 {
-  transform: rotate(90deg);
   max-width: 70px;
 }
 
