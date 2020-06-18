@@ -55,6 +55,8 @@ export default {
     validate() {
       let validate = true;
 
+      if (validate) return validate;
+
       this.errors.lres = '';
       this.errors.mres = '';
       this.errors.hres = '';
