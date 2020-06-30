@@ -4,18 +4,63 @@
       <form class='form' @submit.prevent='uploadPhotos' method="post" enctype="multipart/form-data">
         <div class="form-field">
           <label for="linkName" class='form-label'>Low Resolution Photo <span class='red'> *</span></label>
-          <input name='files[]' @change='changePhotoLres' type="file"  value="" class='form-input' required>
-          <span class='error' v-if='errors.lres'>{{errors.lres}}</span>
+          <image-uploader
+            required
+            class="form-input"
+            :debug="1"
+            :maxWidth="300"
+            :quality="0.5"
+            :autoRotate=true
+            outputFormat="verbose"
+            :preview=false
+            :capture="false"
+            accept="image/*"
+            doNotResize="['gif', 'svg']"
+            @input="changePhotoLres"
+            @onUpload="startImageResize"
+            @onComplete="endImageResize"
+        ></image-uploader>
+          <span class='error' v-for='error in errors.lres' :key='error'>{{error}}</span>
         </div>
         <div class="form-field">
           <label for="linkName" class='form-label'>Medium Resolution Photo <span class='red'> *</span></label>
-          <input type="file" name='files[]' @change='changePhotoMres' value="" class='form-input' required>
-          <span class='error' v-if='errors.mres'>{{errors.mres}}</span>
+          <image-uploader
+            required
+            class="form-input"
+            :debug="1"
+            :maxWidth="1024"
+            :quality="0.7"
+            :autoRotate=true
+            outputFormat="verbose"
+            :preview=false
+            :capture="false"
+            accept="image/*"
+            doNotResize="['gif', 'svg']"
+            @input="changePhotoMres"
+            @onUpload="startImageResize"
+            @onComplete="endImageResize"
+        ></image-uploader>
+          <span class='error' v-for='error in errors.mres' :key='error'>{{error}}</span>
         </div>
         <div class="form-field">
           <label for="linkName" class='form-label'>High Resolution Photo <span class='red'> *</span></label>
-          <input type="file" name='files[]' @change='changePhotoHres' value="" class='form-input' required>
-          <span class='error' v-if='errors.hres'>{{errors.hres}}</span>
+          <image-uploader
+            required
+            class="form-input"
+            :debug="1"
+            :maxWidth="1920"
+            :quality="0.7"
+            :autoRotate=true
+            outputFormat="verbose"
+            :preview=false
+            :capture="false"
+            accept="image/*"
+            doNotResize="['gif', 'svg']"
+            @input="changePhotoHres"
+            @onUpload="startImageResize"
+            @onComplete="endImageResize"
+        ></image-uploader>
+          <span class='error' v-for='error in errors.hres' :key='error'>{{error}}</span>
         </div>
         <input type='submit' value='Upload' :disable='loading' class='form-btn'>
         <router-link to='/admin/dashboard/cities'>
@@ -29,82 +74,128 @@
 <script>
 import axios from 'axios';
 import bus from '../../EventBus';
+import ImageUploader from 'vue-image-upload-resize';
+
 export default {
   name: 'UploadPhotos',
+  components: {
+    ImageUploader
+  },
   data() {
     return {
       loading:false,
       photos: Array(3).fill(null),
       errors: {
-        lres:false,
-        mres:false,
-        hres:false
+        lres:[],
+        mres:[],
+        hres:[]
       }
     }
   },
   methods: {
-    changePhotoLres(evt) {
-      this.photos[0] = evt.target.files[0];
+    startImageResize() {
+      this.loading = true;
+      bus.$emit('loadStart',{msg:'Resizing...'});
     },
-    changePhotoMres(evt) {
-      this.photos[1] = evt.target.files[0];
+    endImageResize() {
+      bus.$emit('loadEnd');
+      this.loading = false;
     },
-    changePhotoHres(evt) {
-      this.photos[2] = evt.target.files[0];
+    changePhotoLres(lres) {
+      this.photos[0] = lres;
     },
+    changePhotoMres(mres) {
+      this.photos[1] = mres;
+    },
+    changePhotoHres(hres) {
+      this.photos[2] = hres;
+    },
+    dataURLToBlob(dataURL) {
+    const BASE64_MARKER = ';base64,';
+    if (dataURL.indexOf(BASE64_MARKER) == -1) {
+        let parts = dataURL.split(',');
+        let contentType = parts[0].split(':')[1];
+        let raw = parts[1];
+
+        return new Blob([raw], {type: contentType});
+    }
+
+    let parts = dataURL.split(BASE64_MARKER);
+    let contentType = parts[0].split(':')[1];
+    let raw = window.atob(parts[1]);
+    let rawLength = raw.length;
+
+    let uInt8Array = new Uint8Array(rawLength);
+
+    for (let i = 0; i < rawLength; ++i) {
+        uInt8Array[i] = raw.charCodeAt(i);
+    }
+
+    return new Blob([uInt8Array], {type: contentType});
+  },
     validate() {
       let validate = true;
 
-      if (validate) return validate;
+      this.errors.lres = [];
+      this.errors.mres = [];
+      this.errors.hres = [];
 
-      this.errors.lres = '';
-      this.errors.mres = '';
-      this.errors.hres = '';
-
-      let lres_size = this.photos[0].size/1024/1024;
-      let mres_size = this.photos[1].size/1024/1024;
-      let hres_size = this.photos[2].size/1024/1024;
-
-      let nameRegex = /\s+/ig;
-      let imageRegex = /^image\/(jpeg|png|jpg|gif)$/ig;
-
-      if(!imageRegex.test(this.photos[0].type)) {
-        this.errors.lres += 'Only photos can be uploaded.\n';
-      }
-
-      if(!imageRegex.test(this.photos[1].type)) {
-        this.errors.mres += 'Only photos can be uploaded.\n';
-      }
-
-      if(!imageRegex.test(this.photos[2].type)) {
-        this.errors.hres += 'Only photos can be uploaded.\n';
-      }
-
-      if(nameRegex.test(this.photos[0].name)) {
-        this.errors.lres += 'Photo names cannot have spaces and special characters. ';
-      }
-
-      if(nameRegex.test(this.photos[1].name)) {
-        this.errors.mres += 'Photo names cannot have spaces and special characters. ';
-      }
-
-      if(nameRegex.test(this.photos[2].name)) {
-        this.errors.hres += 'Photo names cannot have spaces and special characters. ';
-      }
-
-      if (lres_size > 0.4) {
+      if (!this.photos[0]) {
+        this.errors.lres.push('Required');
         validate = false;
-        this.errors.lres += `File size cannot be larger than 400KB. Current is about ${lres_size.toFixed(3) * 1024} KB`;
       }
 
-      if (mres_size > 1) {
+      if (!this.photos[1]) {
+        this.errors.mres.push('Required');
         validate = false;
-        this.errors.mres += `File size cannot be larger than 800KB. Current is about ${mres_size.toFixed(3) * 1024} KB`;
       }
 
-      if (hres_size > 2) {
+      if (!this.photos[2]) {
+        this.errors.hres.push('Required');
         validate = false;
-        this.errors.lres += `File size cannot be larger than 2MB. Current is about ${hres_size.toFixed(3) * 1024} KB`;
+      }
+
+      let nameRegex = /[ \n\t\r]+/g;
+      let imageRegex = /^image\/(jpeg|png)$/g;
+
+      this.photos.forEach(p => console.log(p.info.type));
+
+      if(!this.photos[0].info.type.match(imageRegex)) {
+        this.errors.lres.push('Only (jpg|png) images can be uploaded. Make sure the extension (jpg|png) are in lowercase');
+        validate = false;
+      }
+
+      if(!this.photos[1].info.type.match(imageRegex)) {
+        this.errors.mres.push('Only (jpg|png) images can be uploaded. Make sure the extension (jpg|png) are in lowercase');
+        validate = false;
+      }
+
+      if(!this.photos[2].info.type.match(imageRegex)) {
+        this.errors.hres.push('Only (jpg|png) images can be uploaded. Make sure the extension (jpg|png) are in lowercase');
+        validate = false;
+      }
+
+      if(this.photos[0].info.name.match(nameRegex)) {
+        this.errors.lres.push('Photo names cannot have spaces.');
+        validate = false;
+      }
+
+      if(this.photos[1].info.name.match(nameRegex)) {
+        this.errors.mres.push('Photo names cannot have spaces.');
+        validate = false;
+      }
+
+      if(this.photos[2].info.name.match(nameRegex)) {
+        this.errors.hres.push('Photo names cannot have spaces.');
+        validate = false;
+      }
+
+      if(!(this.photos[0].info.name === this.photos[1].info.name
+      && this.photos[1].info.name === this.photos[2].info.name)) {
+        this.errors.hres.push('Please upload same image in all slots');
+        this.errors.mres.push('Please upload same image in all slots');
+        this.errors.lres.push('Please upload same image in all slots');
+        validate = false;
       }
 
       return validate;
@@ -113,15 +204,15 @@ export default {
 
       if(!this.validate()) return;
 
-      this.errors.lres = false;
-      this.errors.mres = false;
-      this.errors.hres = false;
+      this.errors.lres = [];
+      this.errors.mres = [];
+      this.errors.hres = [];
 
       let formData = new FormData();
 
-      formData.append('photos', this.photos[0], `lres_${this.photos[0].name}`);
-      formData.append('photos', this.photos[1], `mres_${this.photos[1].name}`);
-      formData.append('photos', this.photos[2], `hres_${this.photos[2].name}`);
+      formData.append('photos', this.dataURLToBlob(this.photos[0].dataUrl), `lres_${this.photos[0].info.name}`);
+      formData.append('photos', this.dataURLToBlob(this.photos[1].dataUrl), `mres_${this.photos[1].info.name}`);
+      formData.append('photos', this.dataURLToBlob(this.photos[2].dataUrl), `hres_${this.photos[2].info.name}`);
 
       this.loading = true;
       bus.$emit('loadStart',{msg:'Uploading...'});
@@ -157,5 +248,8 @@ export default {
     display: block;
     width: 100%;
     cursor: pointer;
+  }
+  .error {
+    display: block;
   }
 </style>
