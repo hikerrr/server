@@ -5,6 +5,7 @@ import multerS3 from 'multer-s3';
 
 let multerS3Options = {
   s3: new AWS.S3(),
+  acl: 'public-read',
   bucket: process.env.AWS_BUCKET,
   key: function (req, file, cb) {
     cb(null, file.originalname);
@@ -23,10 +24,10 @@ const uploadPhotos = (req, res) => {
     if (err) {
       return res
         .status(500)
-        .json({status: false, msg: 'Internal Server Error'});
+        .json({ status: false, msg: 'Internal Server Error' });
     }
-    return res.status(201).json({status: true, msg: 'Photos Saved'});
+    return res.status(201).json({ status: true, msg: 'Photos Saved' });
   });
 };
 
-export default {uploadPhotos};
+export default { uploadPhotos };
