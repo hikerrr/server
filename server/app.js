@@ -6,6 +6,7 @@ import helmet from 'helmet';
 import path from 'path';
 import { uuid } from 'uuidv4';
 import mongoose from 'mongoose';
+import logger from 'morgan';
 import session from 'express-session';
 import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
@@ -52,7 +53,6 @@ const sessionOptions = {
 };
 
 if (app.get('env') == 'development') {
-  import logger from 'morgan';
   app.use(logger('dev'));
   sessionOptions.cookie.secure = false;
 }
