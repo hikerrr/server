@@ -1,6 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
-
 import Admin from '../api/models/Admin';
 
 const adminAuth = (req, res, next) => {
@@ -14,12 +11,11 @@ const adminAuth = (req, res, next) => {
           res.redirect('/admin/login');
         }
       })
-      .catch((error) => {
+      .catch(() => {
         req.session.destroy();
         res.redirect('/admin/login');
       });
   } else {
-    console.log(1);
     res.redirect('/admin/login');
   }
 };

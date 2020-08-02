@@ -1,22 +1,23 @@
 import express from 'express';
 import substyleController from '../controllers/substyle';
+import adminAuth from '../../authentication/admin';
 
 const router = express.Router();
 
 router
   .route('/')
   .get(substyleController.getAll)
-  .post(substyleController.addOne)
+  .post(adminAuth, substyleController.addOne)
   .put(substyleController.notAllowed)
   .patch(substyleController.notAllowed)
-  .delete(substyleController.deleteAll);
+  .delete(adminAuth, substyleController.deleteAll);
 
 router
   .route('/:linkName')
   .get(substyleController.getOne)
   .post(substyleController.notAllowed)
-  .put(substyleController.updateOne)
-  .patch(substyleController.updateOne)
-  .delete(substyleController.deleteOne);
+  .put(adminAuth, substyleController.updateOne)
+  .patch(adminAuth, substyleController.updateOne)
+  .delete(adminAuth, substyleController.deleteOne);
 
 export default router;

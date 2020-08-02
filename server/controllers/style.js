@@ -1,5 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
 const listAll = (req, res) => {
@@ -22,7 +20,9 @@ const listOne = async (req, res) => {
     };
 
     res.render('styles', {data});
-  } catch (Error) {}
+  } catch (Error) {
+    return res.status(500).json(Error);
+  }
 };
 
 export default {listOne, listAll};

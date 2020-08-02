@@ -1,5 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
 const listAll = (req, res) => {
@@ -25,7 +23,7 @@ const listOne = async (req, res) => {
         if (destination.tours.some((t) => t._id === tour._id)) {
           if (
             tripStyles[style.heading] &&
-            !tripStyles[style.heading].some(t => t._id === tour._id)
+            !tripStyles[style.heading].some((t) => t._id === tour._id)
           ) {
             tripStyles[style.heading].push(tour);
           } else {
@@ -38,7 +36,7 @@ const listOne = async (req, res) => {
           if (destination.tours.some((t) => t._id === tour._id)) {
             if (
               tripStyles[style.heading] &&
-              !tripStyles[style.heading].some(t => t._id === tour._id)
+              !tripStyles[style.heading].some((t) => t._id === tour._id)
             ) {
               tripStyles[style.heading].push(tour);
             } else {

@@ -4,9 +4,9 @@ import createError from 'http-errors';
 import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
-import logger from 'morgan';
 import {uuid} from 'uuidv4';
 import mongoose from 'mongoose';
+import logger from 'morgan';
 import session from 'express-session';
 import SessionStore from 'connect-mongo';
 import adminRouter from './routes/admin';
@@ -53,6 +53,7 @@ const sessionOptions = {
 };
 
 if (app.get('env') == 'development') {
+  app.use(logger('dev'));
   sessionOptions.cookie.secure = false;
 }
 
@@ -63,14 +64,13 @@ app.use(session(sessionOptions));
 app.set('views', path.join(__dirname, '../views'));
 app.set('view engine', 'pug');
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '../public')));
 app.use(
   '/admin/dashboard',
   adminAuth,
-  express.static(path.join(__dirname, '../client/prod'))
+  express.static(path.join(__dirname, '../client/dist'))
 );
 
 app.use('/', indexRouter);

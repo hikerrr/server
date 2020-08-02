@@ -1,5 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
 import express from 'express';
 import Admin from '../api/models/Admin';
 import adminAuth from '../authentication/admin';
@@ -34,7 +32,7 @@ router.post('/login', (req, res) => {
         res.redirect('/admin/login?valid=false');
       }
     })
-    .catch((error) => {
+    .catch(() => {
       res.redirect('/admin/login?valid=false');
     });
 });

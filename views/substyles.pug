@@ -8,8 +8,8 @@ block content
       div(style=`background-image: url('${data.imageUrl}/hres_${data.substyle.imageName}');`).hero-background
       div.hero-content-wrapper.animate-leftin
         div.hero-content.container
-          header.hero-header.largest-text
-            h1=data.substyle.heading
+          header
+            h1.largest-text.heading=data.substyle.heading
           article.hero-caption
             p=data.substyle.caption
           a(href='#tours').btn.btn-glossy-white Tours for #{data.substyle.heading}

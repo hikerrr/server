@@ -21,7 +21,7 @@ const getAllBookings = (req, res) => {
             'discountCode',
           ];
           const data = [];
-          for (let i = 0; i < bookings.length; i++) {
+          for (let i = 0; i < bookings.length; i += 1) {
             const entry = {};
             for (let j = 0; j < fields.length; j += 1) {
               entry[fields[j]] = bookings[i][fields[j]];
@@ -53,7 +53,7 @@ const getOne = (req, res) => {
 
       return res.status(404).json({status: false, msg: 'Content Not Found'});
     })
-    .catch((err) =>
+    .catch(() =>
       res.status(500).json({status: false, msg: 'Internal Server Error'})
     );
 };
@@ -67,7 +67,7 @@ const getAll = (req, res) => {
 
       return res.status(404).json({status: false, msg: 'Content Not Found'});
     })
-    .catch((err) =>
+    .catch(() =>
       res.status(500).json({status: false, msg: 'Internal Server Error'})
     );
 };

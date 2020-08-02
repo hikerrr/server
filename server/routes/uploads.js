@@ -4,6 +4,6 @@ import adminAuth from '../authentication/admin';
 
 const router = express.Router();
 
-router.post('/photos', uploadController.uploadPhotos);
+router.post('/photos', adminAuth, uploadController.uploadPhotos);
 
 export default router;

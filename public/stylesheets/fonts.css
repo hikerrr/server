@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'Aileron';
+  src: url('../assets/fonts/aileron/Aileron-Regular.otf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Aileron';
+  src: url('../assets/fonts/aileron/Aileron-Bold.otf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Aileron';
+  src: url('../assets/fonts/aileron/Aileron-Black.otf');
+  font-weight: black;
+}
+
+@font-face {
+  font-family: 'Aileron';
+  src: url('../assets/fonts/aileron/Aileron-Light.otf');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'Josefin Slab';
+  src: url('../assets/fonts/josefin_slab/JosefinSlab-Regular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Josefin Slab';
+  src: url('../assets/fonts/josefin_slab/JosefinSlab-Bold.ttf');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: 'Josefin Slab';
+  src: url('../assets/fonts/josefin_slab/JosefinSlab-Light.ttf');
+  font-weight: lighter;
+}

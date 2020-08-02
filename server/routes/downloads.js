@@ -1,6 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
-
 import express from 'express';
 import {parse} from 'json2csv';
 import adminAuth from '../authentication/admin';
@@ -12,7 +9,7 @@ router.post('/csv', adminAuth, (req, res) => {
 
   const data = [];
 
-  for (let i = 0; i < req.body[fields[0]].length; i++) {
+  for (let i = 0; i < req.body[fields[0]].length; i += 1) {
     const entry = {};
     for (let j = 0; j < fields.length; j += 1) {
       entry[fields[j]] = req.body[fields[j]][i];
