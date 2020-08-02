@@ -77,7 +77,6 @@ const toggleSearchBar = () => {
 };
 
 async function fetchSearchData() {
-
   document.querySelector('.nav-links-container').classList.remove('preload');
 
   searchData = [];
@@ -102,7 +101,7 @@ async function fetchSearchData() {
       heading: style.heading,
       caption: style.caption,
       link: `/styles/${style.linkName}`,
-      tags:['#tripstyle','#tours','#variation']
+      tags: ['#tripstyle', '#tours', '#variation'],
     });
   }
 
@@ -114,7 +113,7 @@ async function fetchSearchData() {
       heading: substyle.heading,
       caption: substyle.caption,
       link: `/substyles/${substyle.linkName}`,
-      tags:['#variation','#tours']
+      tags: ['#variation', '#tours'],
     });
   }
 
@@ -126,7 +125,7 @@ async function fetchSearchData() {
       heading: tour.heading || '',
       caption: tour.caption || '',
       link: `/tours/${tour.linkName}` || '',
-      tags:['#tours']
+      tags: ['#tours'],
     });
   }
 
@@ -134,28 +133,24 @@ async function fetchSearchData() {
   let blogs = await blogResponse.json();
 
   for (let blog of blogs) {
-    searchData.push(
-      {
-        heading: blog.title || '',
-        caption: blog.caption || '',
-        link: `/blogs/${blog.linkName}` || '',
-        tags: ['#blogs','#content','#destinations']
-      }
-    );
+    searchData.push({
+      heading: blog.title || '',
+      caption: blog.caption || '',
+      link: `/blogs/${blog.linkName}` || '',
+      tags: ['#blogs', '#content', '#destinations'],
+    });
   }
 
   let careerResponse = await fetch('/api/careers', {method: 'GET'});
   let careers = await careerResponse.json();
 
   for (let career of careers) {
-    searchData.push(
-      {
-        heading: career.name || '',
-        caption: career.description || '',
-        link: '/careers',
-        tags: ['#careers','#jobs','#oppurtunities']
-      }
-    );
+    searchData.push({
+      heading: career.name || '',
+      caption: career.description || '',
+      link: '/careers',
+      tags: ['#careers', '#jobs', '#oppurtunities'],
+    });
   }
 }
 
@@ -169,7 +164,11 @@ const updateSearchResults = () => {
     if (word === '') continue;
     let regex = new RegExp(word, 'gi');
     for (let d of searchData) {
-      if (d.heading.match(regex) || d.caption.match(regex) || d.tags.some(tag => tag.match(regex))) {
+      if (
+        d.heading.match(regex) ||
+        d.caption.match(regex) ||
+        d.tags.some((tag) => tag.match(regex))
+      ) {
         d.heading.replace(regex, '');
         result.push(d);
       }

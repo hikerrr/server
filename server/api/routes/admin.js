@@ -6,18 +6,18 @@ const router = express.Router();
 
 router
   .route('/')
-  .get(adminAuth,adminController.getAll)
-  .post(adminAuth,adminController.addOne)
+  .get(adminAuth, adminController.getAll)
+  .post(adminAuth, adminController.addOne)
   .put(adminController.notAllowed)
   .patch(adminController.notAllowed)
-  .delete(adminAuth,adminController.deleteAll);
+  .delete(adminAuth, adminController.deleteAll);
 
 router
   .route('/:username')
-  .get(adminAuth,adminController.getOne)
+  .get(adminAuth, adminController.getOne)
   .post(adminController.notAllowed)
-  .put(adminAuth,adminController.updateOne)
-  .patch(adminAuth,adminController.updateOne)
-  .delete(adminAuth,adminController.deleteOne);
+  .put(adminAuth, adminController.updateOne)
+  .patch(adminAuth, adminController.updateOne)
+  .delete(adminAuth, adminController.deleteOne);
 
 export default router;

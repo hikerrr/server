@@ -1,21 +1,23 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import Debug from 'debug';
+
+const mongooseOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
 
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI, mongooseOptions)
   .then(() => {
-    // mongoose.connection.db.dropDatabase();
-    console.log('Connected to database.');
+    Debug('Connected to database.');
   })
   .catch((err) => {
-    console.log(`Cannot connect to database. Error: ${err}`);
+    Debug(`Cannot connect to database. Error: ${err}`);
   });
 
 const shutDownDatabaseConnection = (msg, callback) => {
   mongoose.connection.close(() => {
-    console.log(`Database Connection Closed. ${msg}`);
+    Debug(`Database Connection Closed. ${msg}`);
     callback();
   });
 };

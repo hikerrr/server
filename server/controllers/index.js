@@ -1,5 +1,3 @@
-// needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
 import axios from 'axios';
 
 const indexController = async (req, res) => {
@@ -23,7 +21,7 @@ const indexController = async (req, res) => {
 
     res.render('index', {data});
   } catch (Error) {
-    console.log(`Error getting homepage: ${Error}`);
+    return res.status(500).json(Error);
   }
 };
 
