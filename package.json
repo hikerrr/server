@@ -2,15 +2,6 @@
   "name": "hikerr",
   "version": "0.0.0",
   "private": true,
-  "nodemonConfig": {
-    "exec": "npm run dev",
-    "watch": [
-      "server/*"
-    ],
-    "ignore": [
-      "./server/dist"
-    ]
-  },
   "scripts": {
     "start": "node ./dist/bin/www.js",
     "dev": "npm-run-all build local",
