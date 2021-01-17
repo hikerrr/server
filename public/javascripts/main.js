@@ -232,12 +232,6 @@ const updateSearchResults = () => {
   }
 };
 
-// const observer = new IntersectionObserver(callback);
-
-// const targets = document.querySelectorAll(".ts-card-container");
-// targets.forEach(function(target) {
-//  observer.observe(target);
-// });
 
 function toggleFullscreenMode(value) {
   const body = document.documentElement;
@@ -283,11 +277,8 @@ function loop() {
   document.querySelectorAll('.watch').forEach((element) => {
     if (isElementInViewport(element)) {
       element.classList.add('is-visible');
-    } else {
-      element.classList.remove('is-visible');
     }
   });
-
   requestAnimationFrame(loop);
 }
 
