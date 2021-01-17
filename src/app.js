@@ -1,10 +1,10 @@
 // needed by babel for async and generator functions of ES6
-import regeneratorRuntime from 'regenerator-runtime';
+import "regenerator-runtime/runtime.js";
 import createError from 'http-errors';
 import express from 'express';
 import helmet from 'helmet';
 import path from 'path';
-import {uuid} from 'uuidv4';
+import {v4} from 'uuid';
 import mongoose from 'mongoose';
 import logger from 'morgan';
 import session from 'express-session';
@@ -34,7 +34,7 @@ const store = new sessionStore({
 });
 
 const sessionOptions = {
-  secret: uuid(), // uids are good for signing cookies --
+  secret: v4(), // uids are good for signing cookies --
   resave: false, // don't update on requests -- we use static
   saveUninitialized: false, // don't init session until done manually
   rolling: true, // renew the expiry time on new requests
@@ -48,7 +48,7 @@ const sessionOptions = {
     maxAge: 24 * 60 * 60 * 1000, // valid for one day
   },
   genid() {
-    return uuid();
+    return v4();
   },
 };
 
