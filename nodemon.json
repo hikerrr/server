@@ -1,9 +1,9 @@
 {
     "exec": "npm run dev",
     "watch": [
-      "server/*"
+      "src/*"
     ],
     "ignore": [
-      "./server/dist"
+      "./src/dist"
     ]
   }

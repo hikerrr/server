@@ -1,4 +1,4 @@
-import AWS from 'aws-sdk';
+/*import AWS from 'aws-sdk';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 
@@ -27,5 +27,8 @@ const uploadPhotos = (req, res) => {
     return res.status(201).json({status: true, msg: 'Photos Saved'});
   });
 };
-
+*/
+const uploadPhotos = (_,res) => {
+  return res.status(501).json({status:false, msg:'AWS Access denied'});
+}
 export default {uploadPhotos};
