@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import Debug from 'debug';
+import Admin from '../api/models/Admin';
+import {log} from './logger';
 
 const mongooseOptions = {
   useNewUrlParser: true,
@@ -9,15 +10,15 @@ const mongooseOptions = {
 mongoose
   .connect(process.env.MONGODB_URI, mongooseOptions)
   .then(() => {
-    Debug('Connected to database.');
+    log('Connected to database.');
   })
   .catch((err) => {
-    Debug(`Cannot connect to database. Error: ${err}`);
+    log(`Cannot connect to database. Error: ${err}`);
   });
 
 const shutDownDatabaseConnection = (msg, callback) => {
   mongoose.connection.close(() => {
-    Debug(`Database Connection Closed. ${msg}`);
+    log(`Database Connection Closed. ${msg}`);
     callback();
   });
 };
