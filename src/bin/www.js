@@ -49,27 +49,22 @@ function onError(error) {
   }
 }
 
-let options;
-let server;
-
 if (process.env.NODE_ENV === 'production') {
-  options = {
+  const options = {
     ca: fs.readFileSync('/root/server/certs/chain.pem'),
     key: fs.readFileSync('/root/server/certs/privkey.pem'),
     cert: fs.readFileSync('/root/server/certs/cert.pem')
   };
-  server = https.createServer(options,app);
-}
-else {
-  server = http.createServer(app);
-}
-
-function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
-  console.log(`Listening on ${bind}`);
+  const httpsServer = https.createServer(options,app);
+  httpsServer.on('error', onError);
+  httpsServer.listen(443, () => {
+    console.log(`Http server listening on ${port}`);
+  });
 }
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+const httpServer = http.createServer(app);
+
+httpServer.on('error', onError);
+httpServer.listen(port, () => {
+  console.log(`Http server listening on ${port}`);
+});
