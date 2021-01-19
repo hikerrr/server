@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 import Debug from 'debug';
-import http from 'http';
+import https from 'https';
 import app from '../app';
+import fs from 'fs';
 
 const debug = new Debug('hikerr:server');
 
@@ -47,7 +48,13 @@ function onError(error) {
   }
 }
 
-const server = http.createServer(app);
+const options = {
+  ca: fs.readFileSync('/root/server/certs/chain.pem'),
+  key: fs.readFileSync('/root/server/certs/privkey.pem'),
+  cert: fs.readFileSync('/root/server/certs/cert.pem')
+};
+
+const server = https.createServer(options,app);
 
 function onListening() {
   const addr = server.address();
