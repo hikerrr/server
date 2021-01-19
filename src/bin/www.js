@@ -2,6 +2,7 @@
 
 import Debug from 'debug';
 import https from 'https';
+import http from 'http';
 import app from '../app';
 import fs from 'fs';
 
@@ -48,13 +49,20 @@ function onError(error) {
   }
 }
 
-const options = {
-  ca: fs.readFileSync('/root/server/certs/chain.pem'),
-  key: fs.readFileSync('/root/server/certs/privkey.pem'),
-  cert: fs.readFileSync('/root/server/certs/cert.pem')
-};
+let options;
+let server;
 
-const server = https.createServer(options,app);
+if (process.env.NODE_ENV === 'production') {
+  options = {
+    ca: fs.readFileSync('/root/server/certs/chain.pem'),
+    key: fs.readFileSync('/root/server/certs/privkey.pem'),
+    cert: fs.readFileSync('/root/server/certs/cert.pem')
+  };
+  server = https.createServer(options,app);
+}
+else {
+  server = http.createServer(app);
+}
 
 function onListening() {
   const addr = server.address();
