@@ -1,10 +1,8 @@
 #!/usr/bin/env node
 
 import Debug from 'debug';
-import https from 'https';
 import http from 'http';
 import app from '../app';
-import fs from 'fs';
 
 const debug = new Debug('hikerr:server');
 
@@ -49,18 +47,6 @@ function onError(error) {
   }
 }
 
-if (process.env.NODE_ENV === 'production') {
-  const options = {
-    ca: fs.readFileSync('/root/server/certs/chain.pem'),
-    key: fs.readFileSync('/root/server/certs/privkey.pem'),
-    cert: fs.readFileSync('/root/server/certs/cert.pem')
-  };
-  const httpsServer = https.createServer(options,app);
-  httpsServer.on('error', onError);
-  httpsServer.listen(443, () => {
-    console.log(`Http server listening on ${port}`);
-  });
-}
 
 const httpServer = http.createServer(app);
 
