@@ -1,18 +1,41 @@
-FROM node:14
-
-ENV MONGODB_URI=mongodb://mongodb-gen:27017/hikerrr
+# development stage
+FROM node:14-alpine AS development
 
 WORKDIR /app
 
-COPY nodemon.json ./
-
-COPY package*.json ./
+COPY ./package*.json ./
 
 RUN npm install
 
-COPY ./public ./public
-COPY ./client ./client
-COPY ./views ./views
-COPY ./src ./src
+EXPOSE 80
 
-RUN npm run watch:dev
+CMD [ "npm", "run", "watch:dev" ]
+
+
+# build stage
+FROM node:14-alpine AS build
+
+WORKDIR /app
+
+COPY ./package*.json ./
+
+RUN npm install
+
+COPY ./ ./
+
+RUN npm run build
+
+# production stage
+FROM node:14-alpine AS production
+
+WORKDIR /app
+
+COPY ./package*.json ./
+
+RUN npm install --only=production
+
+COPY --from=build /app/dist ./dist
+
+EXPOSE 80
+
+CMD [ "node", "./dist/bin/www.js" ]
